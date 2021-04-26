@@ -21,7 +21,7 @@ public class FieldGridMain : MonoBehaviour
                 nodes[x, y] = new FieldGridNode(xPos, yPos);
                 var instance = Instantiate(nodeData.nodeVisualizationGO, new Vector3(xPos, 0.0f, yPos), Quaternion.identity);
                 instance.transform.SetParent(transform);
-                if (x < 5 || x > 10)
+                if (x < 5 || x > 6)
                 {
                     instance.GetComponent<MeshRenderer>().material = nodeData.playableMaterial;
                 }
@@ -41,7 +41,7 @@ public class FieldGridMain : MonoBehaviour
 
 public class FieldGridNode
 {
-    public GameObject nodeGO;
+    public GameObject unitStationed;
     private float xPos;
     private float yPos;
 
@@ -50,7 +50,5 @@ public class FieldGridNode
         this.xPos = xPos;
         this.yPos = yPos;
     }
-
-
 
 }
