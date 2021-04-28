@@ -72,3 +72,15 @@ public class FieldGrid : MonoBehaviour
     }
 }
 
+public class FieldUnitSpawner
+{
+    public Dictionary<bool, Pool> availabilityPoolDictionary;
+
+    public void RandomlySpawnUnitsWherePossible()
+    {
+
+    }
+
+
+}
+

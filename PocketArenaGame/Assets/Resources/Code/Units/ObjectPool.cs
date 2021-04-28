@@ -83,15 +83,20 @@ public class ObjectPool : MonoBehaviour
         return condition;
     }
 
-    public void PickRandomObjectFromPool()
+    public PoolName PickRandomObjectByPoolName()
     {
         string[] randomPoolName = new string[poolList.Count];
-        for(int i = 0; i < poolList.Count - 1; i++)
+        for (int i = 0; i < poolList.Count - 1; i++)
         {
-            randomPoolName[i] = poolList[i].poolName.ToString();
+            if(IsQueueNotEmpty(poolList[i].poolName))
+            {
+                randomPoolName[i] = poolList[i].poolName.ToString();
+            }
         }
+        int randomNumber = Random.Range(0, randomPoolName.Length);
+        var finalName = poolDictionary[poolList[randomNumber].poolName].poolName;
+        return finalName;
     }
-
 
 }
 

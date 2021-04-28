@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 
-public class Unit : MonoBehaviour
+public class UnitStats : MonoBehaviour
 {
     public EntitiyStatsData statsData;
     //[NonSerialized]
@@ -15,13 +15,14 @@ public class Unit : MonoBehaviour
     {
 
     }
-
-    public void SetUnitToNodePosition()
-    {
-
-    }
-
 }
+
+public class UnitSpawner
+{
+    
+}
+
+
 
 public class TurnManager
 {
