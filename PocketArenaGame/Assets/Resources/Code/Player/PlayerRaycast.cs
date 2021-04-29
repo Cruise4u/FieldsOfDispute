@@ -13,7 +13,10 @@ public class PlayerRaycast : MonoBehaviour
         {
             hittedObject = playerCastHit.collider.gameObject;
         }
+        else
+        {
+            hittedObject = null;
+        }
     }
-
 
 }

@@ -16,6 +16,7 @@ public class ObjectPool : MonoBehaviour
     public Dictionary<PoolName, Queue<GameObject>> queueDictionary;
     public Dictionary<PoolName, Pool> poolDictionary;
 
+    
     public void Awake()
     {
         queueDictionary = new Dictionary<PoolName, Queue<GameObject>>();
@@ -56,7 +57,7 @@ public class ObjectPool : MonoBehaviour
 
     public void SpawnPrefab(PoolName poolName, Vector3 spawnPosition)
     {
-        if(queueDictionary[poolName].Count != 0)
+        if(IsQueueNotEmpty(poolName))
         {
             var prefabInstance = queueDictionary[poolName].Dequeue();
             poolDictionary[poolName].lastPrefabInstantiated = prefabInstance;
@@ -91,9 +92,11 @@ public class ObjectPool : MonoBehaviour
             if(IsQueueNotEmpty(poolList[i].poolName))
             {
                 randomPoolName[i] = poolList[i].poolName.ToString();
+                Debug.Log(randomPoolName[i]);
             }
         }
         int randomNumber = Random.Range(0, randomPoolName.Length);
+        Debug.Log(randomNumber);
         var finalName = poolDictionary[poolList[randomNumber].poolName].poolName;
         return finalName;
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,33 +9,45 @@ public class PlayerController : MonoBehaviour
     public ObjectPool objectPool;
     public PlayerRaycast playerRaycast;
 
-    public void SpawnUnitOnAvailableNode(PoolName poolName)
+    public void ChooseAvailableNodeToSpawn(PoolName poolName)
     {
             if(IsObjectHittedOfTypeNode(PlayerRaycast.hittedObject))
             {
                 var gridNode = PlayerRaycast.hittedObject.GetComponent<FieldGridNode>();
                 if(IsNodeNotPopulated(gridNode))
                 {
-                StationUnitOnNode(poolName,gridNode);
+                    SpawnUnit(poolName,gridNode);
+                    gridNode.unitStationed = PlayerRaycast.hittedObject;
+                    PlayerRaycast.hittedObject.GetComponent<UnitController>().nodeBelowGO = gridNode;
                 }
             }
     }
 
-    public void StationUnitOnNode(PoolName poolName,FieldGridNode node)
+    public void SpawnUnit(PoolName poolName,FieldGridNode node)
     {
         objectPool.SpawnPrefab(poolName,node.unitStationedTransform.position);
     }
 
-    public bool IsObjectHittedOfTypeNode(GameObject node)
+    public bool IsObjectHittedOfTypeNode(GameObject obj)
     {
         bool condition;
-        if (node.TryGetComponent(out FieldGridNode gridNode))
+        if(obj!= null)
         {
-            condition = true;
+            Debug.Log("Is null!");
+            if (obj.TryGetComponent(out FieldGridNode node))
+            {
+                condition = true;
+                Debug.Log("Condition is " + condition);
+            }
+            else
+            {
+                condition = false;
+                Debug.Log("Condition is " + condition);
+            }
         }
         else
         {
-            condition = true;
+            condition = false;
         }
         return condition;
     }

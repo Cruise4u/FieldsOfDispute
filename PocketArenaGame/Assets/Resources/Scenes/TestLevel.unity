@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"TeamAMask","value":{"value":256,"$type":"UnityEngine.LayerMask"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"TeamAMask","value":{"value":256,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"spawningNodesMask","value":{"value":512,"$type":"UnityEngine.LayerMask"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 963194227}
 --- !u!114 &295044437
@@ -969,7 +969,11 @@ MonoBehaviour:
   startingPoint: {x: -20, y: 20}
   nodeList: []
   spawningNodesList: []
+  fieldUnitsList: []
   randomNodeArray: 
+  spawningNodeMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &1212151055
 MonoBehaviour:
   m_ObjectHideFlags: 0

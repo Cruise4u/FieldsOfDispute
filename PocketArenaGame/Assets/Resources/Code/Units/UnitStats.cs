@@ -17,22 +17,3 @@ public class UnitStats : MonoBehaviour
     }
 }
 
-public class UnitSpawner
-{
-    
-}
-
-
-
-public class TurnManager
-{
-    public FieldGrid fieldGrid;
-    public ObjectPool teamPool;
-
-
-
-
-
-
-
-}

@@ -7,4 +7,5 @@ public class FieldGridNodeData : ScriptableObject
     public float width;
     public Material playableMaterial;
     public Material nonplayableMaterial;
+    public Material highlightMaterial;
 }

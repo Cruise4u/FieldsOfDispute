@@ -9,9 +9,15 @@ public class FieldGrid : MonoBehaviour
     public int xSize;
     public int ySize;
     public Vector2 startingPoint;
+
     public List<GameObject> nodeList;
     public List<GameObject> spawningNodesList;
+    public List<GameObject> fieldUnitsList;
+
+
     public int[] randomNodeArray;
+
+    public LayerMask spawningNodeMask;
 
     public void Init()
     {
@@ -44,7 +50,7 @@ public class FieldGrid : MonoBehaviour
                 }
                 else
                 {
-                    node.GetComponent<MeshRenderer>().material = nodeData.nonplayableMaterial;
+                    node.GetComponent<MeshRenderer>().material = nodeData.playableMaterial;
                 }
             }
         }
@@ -65,22 +71,41 @@ public class FieldGrid : MonoBehaviour
         return randomNodeArray[randomNumber];
     }
 
+    public void HighLightSpawningNodes()
+    {
+        foreach(GameObject go in spawningNodesList)
+        {
+            go.layer = 9;
+            go.GetComponent<MeshRenderer>().material = nodeData.highlightMaterial;
+        }
+    }
+
+    public bool AreUnitsNotOnTheBoard()
+    {
+        bool condition;
+        foreach(GameObject go in fieldUnitsList)
+        {
+            if(go.GetComponent<FieldGridNode>().unitStationed != null)
+            {
+                fieldUnitsList.Add(go);
+            }
+        }
+        if(fieldUnitsList.Count > 0)
+        {
+            condition = true;
+        }
+        else
+        {
+            condition = false;
+        }
+        return condition;
+    }
+
+
     public void Start()
     {
         CreateGrid();
         ChooseRandomNode();
+        HighLightSpawningNodes();
     }
 }
-
-public class FieldUnitSpawner
-{
-    public Dictionary<bool, Pool> availabilityPoolDictionary;
-
-    public void RandomlySpawnUnitsWherePossible()
-    {
-
-    }
-
-
-}
-
