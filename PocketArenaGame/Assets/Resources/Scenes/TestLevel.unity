@@ -165,8 +165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
+    _json: '{"declarations":{"collection":{"$content":[{"name":"FieldGrid","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 1212151054}
 --- !u!4 &91020919
 Transform:
   m_ObjectHideFlags: 0
@@ -192,6 +193,7 @@ GameObject:
   - component: {fileID: 266933310}
   - component: {fileID: 266933312}
   - component: {fileID: 266933309}
+  - component: {fileID: 266933311}
   m_Layer: 0
   m_Name: TeamsManager
   m_TagString: Untagged
@@ -234,6 +236,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &266933311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266933308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa24889de4521334288e7a1074e1de0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllers:
+  - {fileID: 0}
+  - {fileID: 0}
+  numberOfPlayers: 0
 --- !u!114 &266933312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,15 +277,15 @@ GameObject:
   m_Component:
   - component: {fileID: 295044434}
   - component: {fileID: 295044436}
-  - component: {fileID: 295044435}
   - component: {fileID: 295044439}
   - component: {fileID: 295044438}
-  - component: {fileID: 295044440}
-  - component: {fileID: 295044437}
   - component: {fileID: 295044441}
+  - component: {fileID: 295044437}
+  - component: {fileID: 295044440}
+  - component: {fileID: 295044435}
   m_Layer: 0
   m_Name: TeamA_Player
-  m_TagString: Untagged
+  m_TagString: TeamA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,9 +333,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"TeamAMask","value":{"value":256,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"spawningNodesMask","value":{"value":512,"$type":"UnityEngine.LayerMask"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"TeamAMask","value":{"value":256,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"spawningNodesMask","value":{"value":512,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"unitPoolManager","value":{"$content":1,"$type":"UnityEngine.Object"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 963194227}
+    - {fileID: 295044440}
 --- !u!114 &295044437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,23 +397,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 295044433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82f6573337c4dab41854c210c3292c60, type: 3}
+  m_Script: {fileID: 11500000, guid: d41b4ea70e2762840a3643465fb5ba40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnedPoolName: 0
   poolList:
-  - lastPrefabInstantiated: {fileID: 0}
-    poolPrefab: {fileID: 3155058319838657794, guid: 176299a76ecfc7544b22a66fae200ac7,
+  - poolName: 0
+    poolPrefab: {fileID: 3632677284798662652, guid: e74eb003b668af243894f3302e0a5614,
       type: 3}
     poolSize: 3
-    poolId: 1
-    poolName: 1
-  - lastPrefabInstantiated: {fileID: 0}
-    poolPrefab: {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855,
-      type: 3}
-    poolSize: 3
-    poolId: 1
-    poolName: 0
+  lastPrefabInstantiated: {fileID: 0}
 --- !u!114 &295044441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,11 +415,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 295044433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a8f2b4674be22458f80ecebeb51922, type: 3}
+  m_Script: {fileID: 11500000, guid: 44fccd1ec60d56c488b9a8a9acad5442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPool: {fileID: 295044440}
-  playerRaycast: {fileID: 295044437}
+  playerTeam: 0
+  unitPoolManager: {fileID: 295044440}
+  borderNode: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +605,7 @@ RectTransform:
   m_Children:
   - {fileID: 1341407733}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -761,116 +773,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020823824}
   m_CullTransparentMesh: 0
---- !u!1 &1146324543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1146324548}
-  - component: {fileID: 1146324547}
-  - component: {fileID: 1146324546}
-  - component: {fileID: 1146324545}
-  - component: {fileID: 1146324544}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1146324544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146324543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43bcc6b0fb97c74e81494bd9757d6ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statsData: {fileID: 0}
-  unitHealthPoints: 0
-  unitMovementPoints: 0
-  unitAttackPoints: 0
---- !u!65 &1146324545
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146324543}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1146324546
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146324543}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1146324547
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146324543}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1146324548
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146324543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.882264, y: 1.6262767, z: -18.427017}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1212151049
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,10 +865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e922b8056bf977d4aabdb6a00df93591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridData: {fileID: 11400000, guid: eb7f18fa097f1ff4e82e0b78991c2604, type: 2}
   nodeData: {fileID: 11400000, guid: 6d6145cb95b1dfa488d1f86b1b4c0de7, type: 2}
-  xSize: 12
-  ySize: 5
-  startingPoint: {x: -20, y: 20}
   nodeList: []
   spawningNodesList: []
   fieldUnitsList: []

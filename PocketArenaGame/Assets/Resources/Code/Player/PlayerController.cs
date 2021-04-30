@@ -1,71 +1,68 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+public enum PlayerTeam
+{
+    TeamA,
+    TeamB,
+}
+
+public enum PoolName
+{
+    KnightPool,
+    ArcherPool,
+    MagePool,
+}
 
 public class PlayerController : MonoBehaviour
 {
-    public static RaycastHit playerCastHit;
-    public static Ray playerRay;
-    public ObjectPool objectPool;
-    public PlayerRaycast playerRaycast;
+    public PlayerTeam playerTeam;
+    public UnitPoolManager unitPoolManager;
+    public int[] borderNode;
+    public bool isPlayerTurn;
+
+
+    public void Init(FieldGrid fieldGrid)
+    {
+        if(playerTeam == PlayerTeam.TeamA)
+        {
+            borderNode = fieldGrid.gridData.borderNodesId_A;
+        }
+        else
+        {
+            borderNode = fieldGrid.gridData.borderNodesId_B;
+        }
+    }
 
     public void ChooseAvailableNodeToSpawn(PoolName poolName)
     {
-            if(IsObjectHittedOfTypeNode(PlayerRaycast.hittedObject))
+        if(PlayerRaycast.hittedObject != null)
+        {
+            if(PlayerRaycast.hittedObject.TryGetComponent(out FieldGridNode node))
             {
-                var gridNode = PlayerRaycast.hittedObject.GetComponent<FieldGridNode>();
-                if(IsNodeNotPopulated(gridNode))
+                if (node.unitStationed == null)
                 {
-                    SpawnUnit(poolName,gridNode);
-                    gridNode.unitStationed = PlayerRaycast.hittedObject;
-                    PlayerRaycast.hittedObject.GetComponent<UnitController>().nodeBelowGO = gridNode;
+                    unitPoolManager.SpawnFromPool(node.unitStationedTransform.position, poolName);
+                    node.unitStationed = unitPoolManager.lastPrefabInstantiated;
+                    node.unitStationed.tag = playerTeam.ToString();
+                    unitPoolManager.lastPrefabInstantiated.GetComponent<UnitController>().currentNode = node;
                 }
             }
+        }
     }
 
-    public void SpawnUnit(PoolName poolName,FieldGridNode node)
+    public void SwapUnits()
     {
-        objectPool.SpawnPrefab(poolName,node.unitStationedTransform.position);
+
     }
 
-    public bool IsObjectHittedOfTypeNode(GameObject obj)
+    public void CastSpell()
     {
-        bool condition;
-        if(obj!= null)
-        {
-            Debug.Log("Is null!");
-            if (obj.TryGetComponent(out FieldGridNode node))
-            {
-                condition = true;
-                Debug.Log("Condition is " + condition);
-            }
-            else
-            {
-                condition = false;
-                Debug.Log("Condition is " + condition);
-            }
-        }
-        else
-        {
-            condition = false;
-        }
-        return condition;
+
     }
 
-    public bool IsNodeNotPopulated(FieldGridNode node)
-    {
-        bool condition;
-        if(node.unitStationed == null)
-        {
-            condition = true; 
-            Debug.Log("Node Available to Populate!");
-        }
-        else
-        {
-            condition = false;
-        }
-        return condition;
-    }
 
 }
 
