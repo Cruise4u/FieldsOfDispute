@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b1b2689d279254cbd76f901534fe16, type: 3}
+  m_Name: Grid Data
+  m_EditorClassIdentifier: 
+  nodeData: {fileID: 11400000, guid: 6d6145cb95b1dfa488d1f86b1b4c0de7, type: 2}
+  startingPoint: {x: -20, y: 15}
+  xSize: 12
+  ySize: 5
+  borderNodesId_A: 05000000110000001d0000002900000035000000
+  borderNodesId_B: 06000000120000001e0000002a00000036000000

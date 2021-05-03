@@ -5,18 +5,13 @@ using Random = UnityEngine.Random;
 
 public class FieldGrid : MonoBehaviour
 {
+    public FieldGridData gridData;
     public FieldGridNodeData nodeData;
-    public int xSize;
-    public int ySize;
-    public Vector2 startingPoint;
-
     public List<GameObject> nodeList;
     public List<GameObject> spawningNodesList;
     public List<GameObject> fieldUnitsList;
 
-
     public int[] randomNodeArray;
-
     public LayerMask spawningNodeMask;
 
     public void Init()
@@ -28,13 +23,13 @@ public class FieldGrid : MonoBehaviour
     public void CreateGrid()
     {
         int nodeNumber = -1;
-        for (int y = 0; y < ySize; y++)
+        for (int y = 0; y < gridData.ySize; y++)
         {
-            for (int x = 0; x < xSize; x++)
+            for (int x = 0; x < gridData.xSize; x++)
             {
                 nodeNumber += 1;
-                var xPos = transform.position.x + startingPoint.x + (x * nodeData.width);
-                var yPos = transform.position.y - startingPoint.y + (y * nodeData.width);
+                var xPos = transform.position.x + gridData.startingPoint.x + (x * nodeData.width);
+                var yPos = transform.position.y - gridData.startingPoint.y + (y * nodeData.width);
                 var node = Instantiate(nodeData.nodeVisualizationGO, new Vector3(xPos, 0.0f, yPos), Quaternion.identity);
                 node.name = "GridNode_" + nodeNumber;
                 node.GetComponent<FieldGridNode>().nodeID = nodeNumber;
@@ -100,7 +95,6 @@ public class FieldGrid : MonoBehaviour
         }
         return condition;
     }
-
 
     public void Start()
     {
