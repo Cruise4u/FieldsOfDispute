@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeData: {fileID: 11400000, guid: 6d6145cb95b1dfa488d1f86b1b4c0de7, type: 2}
   startingPoint: {x: -20, y: 15}
-  xSize: 13
+  xSize: 12
   ySize: 5
   borderNodesId_A: 05000000110000001d0000002900000035000000
   borderNodesId_B: 06000000120000001e0000002a00000036000000

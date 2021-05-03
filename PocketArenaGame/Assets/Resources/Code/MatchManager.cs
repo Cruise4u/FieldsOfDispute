@@ -6,7 +6,7 @@ public class MatchManager : MonoBehaviour
 {
     public PlayerController[] controllers;
     public int turnNumber;
-    public int turnTimer = 30;
+    public float turnTimer = 30.0f;
 
     public void Init()
     {

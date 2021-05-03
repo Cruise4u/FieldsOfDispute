@@ -8,12 +8,10 @@ public class UnitController : MonoBehaviour
     public UnitStats unitStats;
     public FieldGridNode currentNode;
     public FieldGridNode forwardNode;
-
     public void TriggerMovementOrder()
     {
         CustomEvent.Trigger(gameObject,"OnMoveForwardEvent");
     }
-
     public bool IsCurrentNodeOnBorder(int[] borderNode)
     {
         bool condition = false;
@@ -46,7 +44,6 @@ public class UnitController : MonoBehaviour
         }
         return condition;
     }
-
     public void MoveUnitForward()
     {
         transform.DOMove(forwardNode.unitStationedTransform.position, 1.0f);
@@ -57,10 +54,8 @@ public class UnitController : MonoBehaviour
         currentNode.nodeID = forwardNode.nodeID;
         forwardNode.nodeID = tempDoubleFwdNode;
     }
-    public void AttackChampion(UnitStats unitStats,Champion enemyChampion)
+    public void AttackChampion(UnitStats unitStats,ChampionController enemyChampion)
     {
-        enemyChampion.healthPoints -= unitStats.unitAttackPoints;
+        enemyChampion.championStats.currentHealthPoints -= unitStats.unitAttackPoints;
     }
-
-
 }

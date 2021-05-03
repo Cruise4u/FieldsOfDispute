@@ -34,7 +34,7 @@ RectTransform:
   - {fileID: 1738669159951811040}
   - {fileID: 381021861960772267}
   m_Father: {fileID: 5492103860140020308}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -651,7 +651,6 @@ GameObject:
   - component: {fileID: 5492103860140020304}
   - component: {fileID: 5492103860140020316}
   - component: {fileID: 5492103860140020319}
-  - component: {fileID: 5492103860140020307}
   - component: {fileID: 5492103860140020318}
   - component: {fileID: 5492103860140020309}
   m_Layer: 0
@@ -672,6 +671,7 @@ Transform:
   m_LocalPosition: {x: 0.7585963, y: 46.331017, z: -64.29833}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5519837143865973861}
   - {fileID: 91637736}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5492103860140020305}
-  sceneViewId: 2
+  sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &5492103860140020316
@@ -764,18 +764,6 @@ MonoBehaviour:
   unitPoolManager: {fileID: 5492103860140020318}
   borderNode: 
   isPlayerTurn: 0
---- !u!114 &5492103860140020307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5492103860140020311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdb5e33b87167b54693711337a23367c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5492103860140020318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,3 +798,33 @@ MonoBehaviour:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
     - {fileID: 11400000, guid: de24dd9b70108314bab3e822793a7b64, type: 2}
+--- !u!1 &8505929718839034603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5519837143865973861}
+  m_Layer: 0
+  m_Name: TeamA_Champion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5519837143865973861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505929718839034603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5492103860140020308}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

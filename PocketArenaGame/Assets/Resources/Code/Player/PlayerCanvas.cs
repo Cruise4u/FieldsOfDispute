@@ -3,7 +3,7 @@
 public class PlayerCanvas : MonoBehaviour
 {
     public Canvas canvas;
-    
+  
     public void SetCameraForCanvasRenderMode(PlayerTeam playerTeam)
     {
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -19,7 +19,5 @@ public class PlayerCanvas : MonoBehaviour
 
 
     }
-
-
 }
 

@@ -19,6 +19,8 @@ public class Player : MonoBehaviourPunCallbacks
         playerCanvas.SetCameraForCanvasRenderMode(playerTeam);
     }
 
+
+
     public void WriteMessage(string message)
     {
         textObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
