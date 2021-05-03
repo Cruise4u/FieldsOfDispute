@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class Champion : MonoBehaviour
 {
-    public EntitiyStatsData entityStatsData;
-    public int championsHealth;
+    public EntitiyStatsData entitiyStats;
+    [NonSerialized]
+    public int healthPoints;
+    [NonSerialized]
+    public int manaPoints;
+
 
 
 }

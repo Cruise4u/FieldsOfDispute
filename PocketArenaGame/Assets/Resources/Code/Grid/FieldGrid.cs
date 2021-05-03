@@ -39,7 +39,7 @@ public class FieldGrid : MonoBehaviour
                 {
                     spawningNodesList.Add(node);
                 }
-                else if(x < 5 || x > 6)
+                else if(x < 6 || x > 7)
                 {
                     //instance.GetComponent<MeshRenderer>().material = nodeData.playableMaterial;
                 }

@@ -59,7 +59,7 @@ public class UnitController : MonoBehaviour
     }
     public void AttackChampion(UnitStats unitStats,Champion enemyChampion)
     {
-        enemyChampion.championsHealth -= unitStats.unitAttackPoints;
+        enemyChampion.healthPoints -= unitStats.unitAttackPoints;
     }
 
 
