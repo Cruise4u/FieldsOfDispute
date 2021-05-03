@@ -96,10 +96,10 @@ public class FieldGrid : MonoBehaviour
         return condition;
     }
 
-    public void Start()
-    {
-        CreateGrid();
-        ChooseRandomNode();
-        HighLightSpawningNodes();
-    }
+    //public void Start()
+    //{
+    //    CreateGrid();
+    //    ChooseRandomNode();
+    //    HighLightSpawningNodes();
+    //}
 }

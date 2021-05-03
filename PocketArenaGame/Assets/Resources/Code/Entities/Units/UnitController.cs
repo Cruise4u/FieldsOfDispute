@@ -12,6 +12,29 @@ public class UnitController : MonoBehaviour
     {
         CustomEvent.Trigger(gameObject,"OnMoveForwardEvent");
     }
+    public void MoveUnitForward()
+    {
+        transform.DOMove(forwardNode.unitStationedTransform.position, 1.0f);
+    }
+    public void AttackChampion(UnitStats unitStats, ChampionController enemyChampion)
+    {
+        enemyChampion.championStats.currentHealthPoints -= unitStats.unitAttackPoints;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        unitStats.unitCurrentHealthPoints -= damage;
+        if(unitStats.unitCurrentHealthPoints < 1)
+        {
+            Die(1.5f);
+        }
+    }
+
+    public void Die(float timer)
+    {
+        Destroy(gameObject, timer);
+    }
+
     public bool IsCurrentNodeOnBorder(int[] borderNode)
     {
         bool condition = false;
@@ -44,18 +67,10 @@ public class UnitController : MonoBehaviour
         }
         return condition;
     }
-    public void MoveUnitForward()
-    {
-        transform.DOMove(forwardNode.unitStationedTransform.position, 1.0f);
-    }
     public void RecalculatePositionOnGrid()
     {
         var tempDoubleFwdNode = forwardNode.nodeID + 1;
         currentNode.nodeID = forwardNode.nodeID;
         forwardNode.nodeID = tempDoubleFwdNode;
-    }
-    public void AttackChampion(UnitStats unitStats,ChampionController enemyChampion)
-    {
-        enemyChampion.championStats.currentHealthPoints -= unitStats.unitAttackPoints;
     }
 }
