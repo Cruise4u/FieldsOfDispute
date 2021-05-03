@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour
     public int[] borderNode;
     public bool isPlayerTurn;
 
+    public void OnTurnStart()
+    {
+
+    }
 
     public void Init(FieldGrid fieldGrid)
     {

@@ -1,35 +1,17 @@
 ﻿using System;
 using UnityEngine;
 using DG.Tweening;
+using Bolt;
 
 public class UnitController : MonoBehaviour
 {
-    public PlayerController playerController;
     public UnitStats unitStats;
     public FieldGridNode currentNode;
     public FieldGridNode forwardNode;
 
-    public void SetComponentsValuesOnBolt(FieldGrid fieldGrid)
+    public void TriggerMovementOrder()
     {
-        fieldGrid = FindObjectOfType<FieldGrid>();
-    }
-
-    private void Awake()
-    {
-        Init();
-    }
-
-    public void Init()
-    {
-        foreach(PlayerController controller in FindObjectsOfType<PlayerController>())
-        {
-            if(controller.playerTeam.ToString() == gameObject.tag)
-            {
-                playerController = controller;
-                Debug.Log(playerController);
-            }
-        }
-
+        CustomEvent.Trigger(gameObject,"OnMoveForwardEvent");
     }
 
     public bool IsCurrentNodeOnBorder(int[] borderNode)
@@ -49,7 +31,6 @@ public class UnitController : MonoBehaviour
         }
         return condition;
     }
-
     public bool IsPossibleToMoveForward(FieldGrid fieldGrid)
     {
         bool condition;
@@ -70,16 +51,16 @@ public class UnitController : MonoBehaviour
     {
         transform.DOMove(forwardNode.unitStationedTransform.position, 1.0f);
     }
-
-    public void AttackChampion(UnitStats unitStats,Champion enemyChampion)
-    {
-        enemyChampion.championsHealth -= unitStats.unitAttackPoints;
-    }
-
     public void RecalculatePositionOnGrid()
     {
         var tempDoubleFwdNode = forwardNode.nodeID + 1;
         currentNode.nodeID = forwardNode.nodeID;
         forwardNode.nodeID = tempDoubleFwdNode;
     }
+    public void AttackChampion(UnitStats unitStats,Champion enemyChampion)
+    {
+        enemyChampion.championsHealth -= unitStats.unitAttackPoints;
+    }
+
+
 }

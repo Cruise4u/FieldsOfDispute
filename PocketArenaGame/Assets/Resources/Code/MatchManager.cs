@@ -5,34 +5,50 @@ using Random = UnityEngine.Random;
 public class MatchManager : MonoBehaviour
 {
     public PlayerController[] controllers;
+    public int turnNumber;
+    public int turnTimer = 30;
 
     public void Init()
     {
 
     }
 
-    public void FlipCoin()
+    public bool IsThisTurnTheFirst()
     {
-        int randomNumber = Random.Range(0, 1);
-        if(randomNumber == 0)
+        bool condition;
+        if(turnNumber == 1)
         {
-            controllers[1].isPlayerTurn = false;
-            controllers[0].isPlayerTurn = true;
+            condition = true;
         }
         else
+        {
+            condition = false;
+        }
+        return condition;
+    }
+
+    public void SwitchTurns()
+    {
+        if (controllers[0].isPlayerTurn == true)
         {
             controllers[0].isPlayerTurn = false;
             controllers[1].isPlayerTurn = true;
         }
+        else
+        {
+            controllers[1].isPlayerTurn = false;
+            controllers[0].isPlayerTurn = true;
+        }
     }
 
-
-
-    public void Start()
+    public void RefillManaPoints()
     {
 
     }
 
+    public void IncreaseManaPoints()
+    {
 
-
+    }
 }
+

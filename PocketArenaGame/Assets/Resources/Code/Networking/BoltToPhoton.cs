@@ -6,8 +6,7 @@ using Photon.Realtime;
 
 public class BoltToPhoton : MonoBehaviourPunCallbacks
 {
-    public GameObject playerA;
-    public GameObject playerB;
+    public GameObject[] playerArray;
 
     public override void OnConnectedToMaster()
     {
@@ -21,6 +20,8 @@ public class BoltToPhoton : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        CustomEvent.Trigger(playerA, "OnJoinedRoom");
+        CustomEvent.Trigger(gameObject, "OnJoinedRoom");
     }
+
+
 }
