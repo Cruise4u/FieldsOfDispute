@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3872001709810964356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GridStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 5397868548659333663}
   - component: {fileID: 4395821057338487533}
   - component: {fileID: 3299322259308471153}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GridCell
-  m_TagString: Untagged
+  m_TagString: SpawnNode
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,9 +57,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4708906587446141031}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.5, y: 0.1, z: 3.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.04, y: 0, z: -6.88}
+  m_LocalScale: {x: 4, y: 0.1, z: 4}
   m_Children:
   - {fileID: 3872001709810964356}
   m_Father: {fileID: 0}
@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1644057ef74b1414e81379a61b83cbe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeTeam: 0
   unitStationedTransform: {fileID: 3872001709810964356}
   unitStationed: {fileID: 0}
-  nodeID: 0
+  coordinates: {x: 0, y: 0}

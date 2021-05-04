@@ -652,6 +652,7 @@ GameObject:
   - component: {fileID: 5492103860140020316}
   - component: {fileID: 5492103860140020319}
   - component: {fileID: 5492103860140020318}
+  - component: {fileID: 6321815264821183717}
   - component: {fileID: 5492103860140020309}
   m_Layer: 0
   m_Name: TeamA_Player
@@ -760,6 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44fccd1ec60d56c488b9a8a9acad5442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRaycast: {fileID: 6321815264821183717}
   playerTeam: 0
   unitPoolManager: {fileID: 5492103860140020318}
   borderNode: 
@@ -782,6 +784,19 @@ MonoBehaviour:
       type: 3}
     poolSize: 3
   lastPrefabInstantiated: {fileID: 0}
+--- !u!114 &6321815264821183717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492103860140020311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb5e33b87167b54693711337a23367c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hittedObject: {fileID: 0}
 --- !u!114 &5492103860140020309
 MonoBehaviour:
   m_ObjectHideFlags: 0

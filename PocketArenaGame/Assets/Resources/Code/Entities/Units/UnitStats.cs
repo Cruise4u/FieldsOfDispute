@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class UnitStats : MonoBehaviour
 {
     public EntitiyStatsData statsData;
+    public UnitUI unitUI;
     public int unitMaxHealthPoints;
     public int unitCurrentHealthPoints;
     public int unitMovementPoints;
@@ -17,9 +18,12 @@ public class UnitStats : MonoBehaviour
 
     public void Init()
     {
-        unitCurrentHealthPoints = statsData.healthPoints;
+        unitCurrentHealthPoints = Mathf.Clamp(statsData.healthPoints, 0, statsData.healthPoints);
+        unitUI.SetUIPoints(unitUI.healthUIGO, unitCurrentHealthPoints);
         unitMovementPoints = statsData.movementPoints;
+        unitUI.SetUIPoints(unitUI.movementUIGO, unitMovementPoints);
         unitAttackPoints = statsData.attackPoints;
+        unitUI.SetUIPoints(unitUI.attackUIGO, unitAttackPoints);
     }
 
     public void RemoveUnusedEffects()
@@ -45,3 +49,4 @@ public class UnitStats : MonoBehaviour
         }
     }
 }
+

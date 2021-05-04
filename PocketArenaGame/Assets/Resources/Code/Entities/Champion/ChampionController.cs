@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class ChampionController : MonoBehaviour
 {
-    public ChampionStats championStats;
+    public ChampionHealth championStats;
     public ManaStats manaStats;
     public SpellController spellController;
 
     public void Init()
     {
-        championStats = new ChampionStats();
+        championStats = new ChampionHealth();
         manaStats = new ManaStats();
     }
 }

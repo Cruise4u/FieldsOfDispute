@@ -13,10 +13,10 @@ public class SpellController : MonoBehaviour
         spellList[index].spellStats.spellPrefab.SetActive(true);
     }
 
-    public void AimSpellOnField(int index,Camera camera,LayerMask mask)
+    public void AimSpellOnField(int index,Camera camera,LayerMask mask,PlayerTeam team)
     {
-        var fieldGrid = FindObjectOfType<FieldGrid>();
-        spellList[index].AimSpell(fieldGrid,camera, mask);
+        var grid = FindObjectOfType<FieldGrid>();
+        //spellList[index].AimSpell(camera, mask,team);
     }
 
 

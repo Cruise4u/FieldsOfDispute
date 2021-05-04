@@ -8,6 +8,10 @@ public class UnitController : MonoBehaviour
     public UnitStats unitStats;
     public FieldGridNode currentNode;
     public FieldGridNode forwardNode;
+    public void Init()
+    {
+        unitStats.Init();
+    }
     public void TriggerMovementOrder()
     {
         CustomEvent.Trigger(gameObject,"OnMoveForwardEvent");
@@ -20,43 +24,38 @@ public class UnitController : MonoBehaviour
     {
         enemyChampion.championStats.currentHealthPoints -= unitStats.unitAttackPoints;
     }
-
     public void TakeDamage(int damage)
     {
+        Debug.Log("Taking Damage Sucessfull!");
         unitStats.unitCurrentHealthPoints -= damage;
+        unitStats.unitUI.SetUIPoints(unitStats.unitUI.healthUIGO, unitStats.unitCurrentHealthPoints);
         if(unitStats.unitCurrentHealthPoints < 1)
         {
             Die(1.5f);
         }
     }
-
     public void Die(float timer)
     {
         Destroy(gameObject, timer);
     }
-
-    public bool IsCurrentNodeOnBorder(int[] borderNode)
+    public bool IsCurrentNodeOnBorder(LayerMask borderMask)
     {
         bool condition = false;
-        for (int i = 0; i < borderNode.Length; i++)
+        if (currentNode.gameObject.layer != borderMask)
         {
-            if (currentNode.nodeID != borderNode[i])
-            {
-                condition = true;
-            }
-            else
-            {
-                condition = false;
-                break;
-            }
+            condition = true;
+        }
+        else
+        {
+            condition = false;
         }
         return condition;
     }
     public bool IsPossibleToMoveForward(FieldGrid fieldGrid)
     {
         bool condition;
-        Debug.Log(fieldGrid);
-        forwardNode = fieldGrid.nodeList[currentNode.nodeID + 1].GetComponent<FieldGridNode>();
+        var forwardCoordinates = currentNode.coordinates + new Vector2(1, 0);
+        forwardNode = fieldGrid.nodeCoordinatesDictionary[forwardCoordinates].GetComponent<FieldGridNode>();
         if(forwardNode.unitStationed == null)
         {
             condition = true;
@@ -69,8 +68,8 @@ public class UnitController : MonoBehaviour
     }
     public void RecalculatePositionOnGrid()
     {
-        var tempDoubleFwdNode = forwardNode.nodeID + 1;
-        currentNode.nodeID = forwardNode.nodeID;
-        forwardNode.nodeID = tempDoubleFwdNode;
+        var tempDoubleFwdNode = forwardNode.coordinates + new Vector2(1, 0);
+        currentNode.coordinates = forwardNode.coordinates;
+        forwardNode.coordinates = tempDoubleFwdNode;
     }
 }

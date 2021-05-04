@@ -2,50 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
 public enum PlayerTeam
 {
     TeamA,
     TeamB,
 }
 
-public enum PoolName
-{
-    KnightPool,
-    ArcherPool,
-    MagePool,
-}
-
 public class PlayerController : MonoBehaviour
 {
+    public PlayerRaycast playerRaycast;
     public PlayerTeam playerTeam;
-    public UnitPoolManager unitPoolManager;
+    public ObjectPool unitPoolManager;
     public int[] borderNode;
     public bool isPlayerTurn;
+
+    public void Init()
+    {
+
+    }
+
+    public void Start()
+    {
+        Init();
+    }
 
     public void OnTurnStart()
     {
 
     }
 
-    public void Init(FieldGrid fieldGrid)
-    {
-        if(playerTeam == PlayerTeam.TeamA)
-        {
-            borderNode = fieldGrid.gridData.borderNodesId_A;
-        }
-        else
-        {
-            borderNode = fieldGrid.gridData.borderNodesId_B;
-        }
-    }
-
     public void ChooseAvailableNodeToSpawn(PoolName poolName)
     {
-        if(PlayerRaycast.hittedObject != null)
+        if(playerRaycast.hittedObject != null)
         {
-            if(PlayerRaycast.hittedObject.TryGetComponent(out FieldGridNode node))
+            Debug.Log(playerRaycast.hittedObject);
+            if(playerRaycast.hittedObject.TryGetComponent(out FieldGridNode node))
             {
+                Debug.Log("It has FieldGridNode Component");
                 if (node.unitStationed == null)
                 {
                     unitPoolManager.SpawnFromPool(node.unitStationedTransform.position, poolName);

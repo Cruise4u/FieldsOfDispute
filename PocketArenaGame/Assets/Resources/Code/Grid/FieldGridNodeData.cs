@@ -3,10 +3,11 @@
 [CreateAssetMenu]
 public class FieldGridNodeData : ScriptableObject
 {
-    public int[] borderNodeId = { };
     public GameObject nodeVisualizationGO;
     public float width;
-    public Material playableMaterial;
-    public Material nonplayableMaterial;
+    public Material playerANodeMat;
+    public Material playerBNodeMat;
+    public Material borderNodeMat;
+
     public Material highlightMaterial;
 }

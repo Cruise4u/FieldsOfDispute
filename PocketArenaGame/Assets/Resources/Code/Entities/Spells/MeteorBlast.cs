@@ -4,42 +4,58 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Spell/Meteor Blast")]
 public class MeteorBlast : Spell
 {
-    RaycastHit castHit;
-
-    public override void CastSpell(LayerMask mask)
+    public override void CastSpell(GameObject spellShape)
     {
-        GameObject[] spellNodeArray = new GameObject[spellStats.spellPrefab.transform.childCount];
-        for(int i = 0; i < spellNodeArray.Length; i++)
+        for(int i = 0; i < spellShape.transform.childCount; i++)
         {
-            var spell = spellNodeArray[i];
-            var bottomPosition = new Vector3(spell.transform.position.x, spell.transform.position.y - 2.0f, spell.transform.position.z);
-            if (Physics.Raycast(spell.transform.position, bottomPosition, out castHit, mask))
-            {
-                castHit.collider.gameObject.GetComponent<UnitController>().TakeDamage(spellStats.spellPower);
-            }
+            PerformSpellOnTarget(spellShape.transform.GetChild(i).gameObject);
         }
     }
 
-    public override void AimSpell(FieldGrid grid,Camera camera,LayerMask mask)
+    public override void AimSpell(GameObject indicator,PlayerController controller,Camera camera,LayerMask mask)
     {
-        var enemyTeamTag = "";
-        PlayerRaycast.ShootRaycast(camera, mask);
-        if(PlayerRaycast.hittedObject.tag == enemyTeamTag)
+        var grid = FindObjectOfType<FieldGrid>(); 
+        controller.playerRaycast.ShootRaycast(camera, mask);
+        if(Physics.Raycast(controller.playerRaycast.playerRay, out controller.playerRaycast.playerCastHit, mask))
         {
-            if(PlayerRaycast.hittedObject.GetComponent<FieldGridNode>())
+            if (indicator != null && indicator.activeSelf != false)
             {
-                VisualizeSpellOnGrid(grid,PlayerRaycast.hittedObject,spellStats.spellPrefab);
+                if(controller.playerTeam == PlayerTeam.TeamA)
+                {
+                    if (controller.playerRaycast.playerCastHit.collider.GetComponent<FieldGridNode>())
+                    {
+                        var hittedCoordinate = new Vector2(9, controller.playerRaycast.playerCastHit.collider.gameObject.GetComponent<FieldGridNode>().coordinates.y);
+                        var hittedTransform = grid.nodeCoordinatesDictionary[hittedCoordinate].GetComponent<FieldGridNode>().unitStationedTransform.position;
+                        var adjustedPosition = new Vector3(hittedTransform.x, hittedTransform.y + 0.1f, hittedTransform.z);
+                        indicator.transform.position = adjustedPosition;
+                    }
+                }
+                else
+                {
+                    var hittedCoordinate = new Vector2(2, controller.playerRaycast.playerCastHit.collider.gameObject.GetComponent<FieldGridNode>().coordinates.y);
+                    var hittedTransform = grid.nodeCoordinatesDictionary[hittedCoordinate].GetComponent<FieldGridNode>().unitStationedTransform.position;
+                    var adjustedPosition = new Vector3(hittedTransform.x, hittedTransform.y + 0.1f, hittedTransform.z);
+                    indicator.transform.position = adjustedPosition;
+                }
             }
+        }
+        else
+        {
+            Debug.Log("Not hitting anything!");
         }
     }
 
-    public override void VisualizeSpellOnGrid(FieldGrid grid,GameObject simulatedHit,GameObject spellPrefab)
+    public void PerformSpellOnTarget(GameObject go)
     {
-        if(spellPrefab != null && spellPrefab.activeSelf != true)
+        Collider[] colliders = Physics.OverlapBox(go.transform.position,go.transform.lossyScale);
+        foreach (Collider collider in colliders)
         {
-            var hitPosition = simulatedHit.transform.position;
-            var node = castHit.collider.gameObject.GetComponent<FieldGridNode>();
-            spellPrefab.transform.position = new Vector3(hitPosition.x, hitPosition.y + 0.1f, hitPosition.z);
+            Debug.Log(collider.gameObject);
+            if (collider.gameObject.GetComponent<UnitController>())
+            {
+                Debug.Log(collider.gameObject);
+                collider.gameObject.GetComponent<UnitController>().TakeDamage(spellStats.spellPower);
+            }
         }
     }
 }

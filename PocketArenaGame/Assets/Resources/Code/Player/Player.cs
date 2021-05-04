@@ -10,7 +10,7 @@ public class Player : MonoBehaviourPunCallbacks
     public PlayerTeam playerTeam;
     public PlayerCanvas playerCanvas;
     public PlayerController playerController;
-
+    public bool isPlayerTurn;
 
     public GameObject textObject;
 

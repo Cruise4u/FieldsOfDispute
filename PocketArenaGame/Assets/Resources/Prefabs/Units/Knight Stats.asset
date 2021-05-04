@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2597b3e0516415448a986b01e72fa6e9, type: 3}
   m_Name: Knight Stats
   m_EditorClassIdentifier: 
-  healthPoints: 0
-  attackPoints: 0
+  healthPoints: 3
+  attackPoints: 3
   movementPoints: 3
