@@ -12,49 +12,13 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerTeam playerTeam;
     public PlayerRaycast playerRaycast;
-    public ObjectPool unitPoolManager;
-    public List<UnitController> unitsList;
+    public PoolController poolController;
+    public UnitManager unitManager;
     public bool isPlayerTurn;
-
-    public bool IsThereAnyUnitOnField()
-    {
-        bool condition;
-        if (unitsList != null && unitsList.Count > 0)
-        {
-            condition = true;
-        }
-        else
-        {
-            condition = false;
-        }
-        return condition;
-    }
-
-    public void ChooseAvailableNodeToSpawn(PoolName poolName)
-    {
-        if (playerRaycast.hittedObject != null)
-        {
-            Debug.Log(playerRaycast.hittedObject);
-            if (playerRaycast.hittedObject.TryGetComponent(out FieldGridNode node))
-            {
-                Debug.Log("It has FieldGridNode Component");
-                if (node.unitStationed == null)
-                {
-                    unitPoolManager.SpawnFromPool(node.unitStationedTransform.position, poolName);
-                    node.unitStationed = unitPoolManager.lastPrefabInstantiated;
-                    node.unitStationed.tag = playerTeam.ToString();
-                    unitPoolManager.lastPrefabInstantiated.GetComponent<UnitController>().currentNode = node;
-                }
-            }
-        }
-    }
 
     public void RequestMovementOrderToUnits()
     {
-        foreach (UnitController controller in unitsList)
-        {
-            controller.TriggerMovementOrder();
-        }
+        unitManager.RequestMovementOrder();
     }
 
     public void SwapUnits()
@@ -67,15 +31,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Init()
+    public void Init(PlayerTeam playerTeam)
     {
-
+        this.playerTeam = playerTeam;
+        playerRaycast.Init(this.playerTeam);
+        poolController.Init();
+        unitManager.Init();
     }
 
-    public void Start()
-    {
-        Init();
-    }
 }
 
 

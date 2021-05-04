@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 5492103860140020306}
   - component: {fileID: 5492103860140020305}
   - component: {fileID: 5492103860140020304}
-  - component: {fileID: 5492103860140020318}
+  - component: {fileID: 4829611928548686750}
   - component: {fileID: 5492103860140020316}
   - component: {fileID: 5492103860140020319}
   - component: {fileID: 6321815264821183717}
@@ -678,9 +678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"isActive","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"},{"name":"PlayerChampionController","value":null,"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences:
-    - {fileID: 0}
+    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":null,"$version":"A"},{"name":"isActive","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"},{"name":"PlayerChampionController","value":null,"$version":"A"},{"name":"playerTeamNodeMask","value":{"value":2048,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"enemyTeamNodeMask","value":{"value":4096,"$type":"UnityEngine.LayerMask"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!114 &5492103860140020305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,7 +719,7 @@ MonoBehaviour:
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5492103860140020318
+--- !u!114 &4829611928548686750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -729,19 +728,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5492103860140020311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d41b4ea70e2762840a3643465fb5ba40, type: 3}
+  m_Script: {fileID: 11500000, guid: d26354f33c37f9e4ebcd420f3f5b967e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPool:
+    poolName: 
+    poolPrefab: {fileID: 0}
+    poolSize: 0
   poolList:
-  - poolName: 0
-    poolPrefab: {fileID: 6548680197173796541, guid: 9a1305b86afc68b419e8aa1056d1eab4,
+  - poolName: KnightPool
+    poolPrefab: {fileID: 7852452252180087927, guid: e8ee4e1b8aa41084cbe70196ad2a581a,
       type: 3}
-    poolSize: 3
-  - poolName: 3
-    poolPrefab: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
+    poolSize: 4
+  - poolName: KnightPoolFake
+    poolPrefab: {fileID: 7745713186532048310, guid: bc9e0c67d8705124ba1959669906b3bf,
       type: 3}
     poolSize: 1
-  lastPrefabInstantiated: {fileID: 0}
 --- !u!114 &5492103860140020316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +761,6 @@ MonoBehaviour:
   playerController: {fileID: 5492103860140020319}
   championController: {fileID: 2083795748646294230}
   isPlayerTurn: 0
-  textObject: {fileID: 0}
 --- !u!114 &5492103860140020319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,8 +775,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTeam: 0
   playerRaycast: {fileID: 6321815264821183717}
-  unitPoolManager: {fileID: 5492103860140020318}
-  playerUnits: []
+  poolController: {fileID: 4829611928548686750}
+  unitManager: {fileID: 1561398832145174188}
   isPlayerTurn: 0
 --- !u!114 &6321815264821183717
 MonoBehaviour:
@@ -789,7 +790,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb5e33b87167b54693711337a23367c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 0}
+  visualizationUnit: {fileID: 0}
   hittedObject: {fileID: 0}
+  ghostMaterial: {fileID: 2100000, guid: 62b1b109ebfd33d4ab81c69ff22c6813, type: 2}
+  spawningMask:
+    serializedVersion: 2
+    m_Bits: 0
+  spellMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1075555648940476883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +812,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e5655a7ab1feb4484c5ea929abb7bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
+  playerCamera: {fileID: 0}
+  canvas: {fileID: 91637739}
 --- !u!114 &1561398832145174188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,7 +826,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2bc1e09a56b38247a8f881c8915342c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitControllers: []
+  unitControllersList: []
+  pool: {fileID: 0}
+  numberOfSpawnsPerTurn: 0
 --- !u!114 &5492103860140020309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,6 +891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a19acd279294f24f8ada943923da643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTeam: 0
   championHealth: {fileID: 2896289474389976370}
   manaStats: {fileID: 7996806623302766554}
   spellController: {fileID: 8339710960367668211}

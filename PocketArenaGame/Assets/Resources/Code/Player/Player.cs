@@ -13,18 +13,30 @@ public class Player : MonoBehaviourPunCallbacks
     public ChampionController championController;
     public bool isPlayerTurn;
 
-    public GameObject textObject;
-
+    
     public void Init()
     {
-        playerCanvas.SetCameraForCanvasRenderMode(playerTeam);
+        if(photonView.ViewID == 1001)
+        {
+            playerTeam = PlayerTeam.TeamA;
+        }
+        else
+        {
+            playerTeam = PlayerTeam.TeamB;
+        }
+        InitializeComponents();
     }
 
-
-
-    public void WriteMessage(string message)
+    public void InitializeComponents()
     {
-        textObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        playerController.Init(playerTeam);
+        championController.Init(playerTeam);
     }
+
+    public void Start()
+    {
+        Init();
+    }
+
 
 }

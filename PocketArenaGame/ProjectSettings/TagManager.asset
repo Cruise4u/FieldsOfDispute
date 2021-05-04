@@ -8,6 +8,7 @@ TagManager:
   - DefaultNode
   - BorderNode
   - Unit
+  - TeamA
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - TeamA
   - TeamB
   - Board
-  - 
-  - 
+  - NodeA
+  - NodeB
   - 
   - 
   - 
