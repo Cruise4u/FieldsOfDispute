@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 91637736}
-  - component: {fileID: 3910837813886145724}
   - component: {fileID: 91637739}
   - component: {fileID: 91637738}
   - component: {fileID: 91637737}
@@ -19,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &91637736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41,19 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &3910837813886145724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91637735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19e5655a7ab1feb4484c5ea929abb7bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 91637739}
 --- !u!223 &91637739
 Canvas:
   m_ObjectHideFlags: 0
@@ -113,7 +99,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1847
 --- !u!1 &381021860813743664
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,14 +635,16 @@ GameObject:
   - component: {fileID: 5492103860140020306}
   - component: {fileID: 5492103860140020305}
   - component: {fileID: 5492103860140020304}
+  - component: {fileID: 5492103860140020318}
   - component: {fileID: 5492103860140020316}
   - component: {fileID: 5492103860140020319}
-  - component: {fileID: 5492103860140020318}
   - component: {fileID: 6321815264821183717}
+  - component: {fileID: 1075555648940476883}
+  - component: {fileID: 1561398832145174188}
   - component: {fileID: 5492103860140020309}
   m_Layer: 0
   m_Name: TeamA_Player
-  m_TagString: TeamA
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -690,10 +678,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"TeamAMask","value":{"value":256,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"spawningNodesMask","value":{"value":512,"$type":"UnityEngine.LayerMask"},"$version":"A"},{"name":"unitPoolManager","value":{"$content":1,"$type":"UnityEngine.Object"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _json: '{"declarations":{"collection":{"$content":[{"name":"playerCamera","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"isActive","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"},{"name":"PlayerChampionController","value":null,"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 0}
-    - {fileID: 5492103860140020318}
 --- !u!114 &5492103860140020305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,39 +720,6 @@ MonoBehaviour:
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5492103860140020316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5492103860140020311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca35441cdce93354e86ba84f78b55734, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTeam: 0
-  playerCanvas: {fileID: 3910837813886145724}
-  playerController: {fileID: 5492103860140020319}
-  textObject: {fileID: 0}
---- !u!114 &5492103860140020319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5492103860140020311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44fccd1ec60d56c488b9a8a9acad5442, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRaycast: {fileID: 6321815264821183717}
-  playerTeam: 0
-  unitPoolManager: {fileID: 5492103860140020318}
-  borderNode: 
-  isPlayerTurn: 0
 --- !u!114 &5492103860140020318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,10 +734,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolList:
   - poolName: 0
-    poolPrefab: {fileID: 3632677284798662652, guid: e74eb003b668af243894f3302e0a5614,
+    poolPrefab: {fileID: 6548680197173796541, guid: 9a1305b86afc68b419e8aa1056d1eab4,
       type: 3}
     poolSize: 3
+  - poolName: 3
+    poolPrefab: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
+      type: 3}
+    poolSize: 1
   lastPrefabInstantiated: {fileID: 0}
+--- !u!114 &5492103860140020316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492103860140020311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca35441cdce93354e86ba84f78b55734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTeam: 0
+  playerCanvas: {fileID: 1075555648940476883}
+  playerController: {fileID: 5492103860140020319}
+  championController: {fileID: 2083795748646294230}
+  isPlayerTurn: 0
+  textObject: {fileID: 0}
+--- !u!114 &5492103860140020319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492103860140020311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44fccd1ec60d56c488b9a8a9acad5442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTeam: 0
+  playerRaycast: {fileID: 6321815264821183717}
+  unitPoolManager: {fileID: 5492103860140020318}
+  playerUnits: []
+  isPlayerTurn: 0
 --- !u!114 &6321815264821183717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,6 +790,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hittedObject: {fileID: 0}
+--- !u!114 &1075555648940476883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492103860140020311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e5655a7ab1feb4484c5ea929abb7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+--- !u!114 &1561398832145174188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5492103860140020311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2bc1e09a56b38247a8f881c8915342c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitControllers: []
 --- !u!114 &5492103860140020309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,6 +841,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5519837143865973861}
+  - component: {fileID: 2083795748646294230}
+  - component: {fileID: 8339710960367668211}
+  - component: {fileID: 7996806623302766554}
+  - component: {fileID: 2896289474389976370}
   m_Layer: 0
   m_Name: TeamA_Champion
   m_TagString: Untagged
@@ -843,3 +866,64 @@ Transform:
   m_Father: {fileID: 5492103860140020308}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2083795748646294230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505929718839034603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a19acd279294f24f8ada943923da643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  championHealth: {fileID: 2896289474389976370}
+  manaStats: {fileID: 7996806623302766554}
+  spellController: {fileID: 8339710960367668211}
+--- !u!114 &8339710960367668211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505929718839034603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e752322aae924d74aab5a75b77334116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpellActive: 0
+  spellList:
+  - {fileID: 11400000, guid: dceb0cb75c80ade4dbec2bb174e1179a, type: 2}
+  enemyFieldMask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7996806623302766554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505929718839034603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6619b8add52ba45ba967b4fe6f6d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxManaPoints: 0
+  currentManaPoints: 0
+--- !u!114 &2896289474389976370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505929718839034603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20abe9e9f846ab040bc49076dd9032b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealthPoints: 0
+  currentHealthPoints: 0

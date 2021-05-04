@@ -10,33 +10,32 @@ public enum PlayerTeam
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerRaycast playerRaycast;
     public PlayerTeam playerTeam;
+    public PlayerRaycast playerRaycast;
     public ObjectPool unitPoolManager;
-    public int[] borderNode;
+    public List<UnitController> unitsList;
     public bool isPlayerTurn;
 
-    public void Init()
+    public bool IsThereAnyUnitOnField()
     {
-
-    }
-
-    public void Start()
-    {
-        Init();
-    }
-
-    public void OnTurnStart()
-    {
-
+        bool condition;
+        if (unitsList != null && unitsList.Count > 0)
+        {
+            condition = true;
+        }
+        else
+        {
+            condition = false;
+        }
+        return condition;
     }
 
     public void ChooseAvailableNodeToSpawn(PoolName poolName)
     {
-        if(playerRaycast.hittedObject != null)
+        if (playerRaycast.hittedObject != null)
         {
             Debug.Log(playerRaycast.hittedObject);
-            if(playerRaycast.hittedObject.TryGetComponent(out FieldGridNode node))
+            if (playerRaycast.hittedObject.TryGetComponent(out FieldGridNode node))
             {
                 Debug.Log("It has FieldGridNode Component");
                 if (node.unitStationed == null)
@@ -50,6 +49,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void RequestMovementOrderToUnits()
+    {
+        foreach (UnitController controller in unitsList)
+        {
+            controller.TriggerMovementOrder();
+        }
+    }
+
     public void SwapUnits()
     {
 
@@ -60,7 +67,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Init()
+    {
 
+    }
+
+    public void Start()
+    {
+        Init();
+    }
 }
 
 

@@ -53,25 +53,25 @@ public class GridCreationTool : MonoBehaviour
                     node.tag = "BorderNode";
                     node.GetComponent<MeshRenderer>().material = nodeData.borderNodeMat;
                 }
-                }
-            }
-        }
-
-
-        [Button]
-        public void AssignNodesToEachTeam()
-        {
-            var grid = FindObjectOfType<FieldGrid>();
-            foreach (GameObject node in grid.nodeList)
-            {
-                if (node.GetComponent<FieldGridNode>().coordinates.x < 6)
-                {
-                    node.GetComponent<FieldGridNode>().nodeTeam = PlayerTeam.TeamA;
-                }
-                else
-                {
-                    node.GetComponent<FieldGridNode>().nodeTeam = PlayerTeam.TeamB;
-                }
             }
         }
     }
+
+
+    [Button]
+    public void AssignNodesToEachTeam()
+    {
+        var grid = FindObjectOfType<FieldGrid>();
+        foreach (GameObject node in grid.nodeList)
+        {
+            if (node.GetComponent<FieldGridNode>().coordinates.x < 6)
+            {
+                node.GetComponent<FieldGridNode>().nodeTeam = PlayerTeam.TeamA;
+            }
+            else
+            {
+                node.GetComponent<FieldGridNode>().nodeTeam = PlayerTeam.TeamB;
+            }
+        }
+    }
+}

@@ -1,7 +1,8 @@
 ﻿using System;
+using UnityEngine;
 
 [System.Serializable]
-public class ManaStats
+public class ManaStats : MonoBehaviour
 {
     public int maxManaPoints;
     public int currentManaPoints;

@@ -8,6 +8,7 @@ public class FieldGrid : MonoBehaviour
     public FieldGridData gridData;
     public FieldGridNodeData nodeData;
     public List<GameObject> nodeList;
+    public List<FieldGridNode> spawningNodeList;
     public Dictionary<Vector2, GameObject> nodeCoordinatesDictionary;
 
     public void AddEntriesToDictionary()

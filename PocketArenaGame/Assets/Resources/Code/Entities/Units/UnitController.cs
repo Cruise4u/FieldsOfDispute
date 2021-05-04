@@ -22,7 +22,7 @@ public class UnitController : MonoBehaviour
     }
     public void AttackChampion(UnitStats unitStats, ChampionController enemyChampion)
     {
-        enemyChampion.championStats.currentHealthPoints -= unitStats.unitAttackPoints;
+        enemyChampion.championHealth.currentHealthPoints -= unitStats.unitAttackPoints;
     }
     public void TakeDamage(int damage)
     {
