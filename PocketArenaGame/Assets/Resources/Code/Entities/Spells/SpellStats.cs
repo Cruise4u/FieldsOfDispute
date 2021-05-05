@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpellStats : ScriptableObject
 {
     public GameObject spellPrefab;
+    public GameObject spellIndicator;
     public int spellPower;
     public int spellCost;
 }

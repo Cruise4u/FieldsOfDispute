@@ -1,15 +1,23 @@
 ﻿using System;
 using UnityEngine;
 
+public enum TargetType
+{
+    Allie,
+    Foe,
+}
+
+public enum EffectType
+{
+    Buff,
+    Debuff,
+    Instant,
+}
+
 public abstract class SpellEffect : ScriptableObject
 {
-    public enum EffectType
-    {
-        Buff,
-        Debuff,
-        Instant,
-    }
-    public EffectType thisEffectType;
+    public TargetType targetType;
+    public EffectType effectType;
     public int effectPower;
     public float effectMaxDuration;
     public bool isActive;

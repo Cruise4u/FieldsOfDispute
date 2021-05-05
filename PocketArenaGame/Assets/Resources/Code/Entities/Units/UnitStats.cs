@@ -42,7 +42,7 @@ public class UnitStats : MonoBehaviour
     {
         foreach(SpellEffect effect in effectsOnUnitList)
         {
-            if(effect.thisEffectType == SpellEffect.EffectType.Instant)
+            if(effect.effectType == EffectType.Debuff)
             {
                 effect.ApplyEffect(gameObject);
             }

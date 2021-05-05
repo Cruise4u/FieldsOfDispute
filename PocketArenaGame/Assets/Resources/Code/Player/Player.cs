@@ -13,7 +13,7 @@ public class Player : MonoBehaviourPunCallbacks
     public ChampionController championController;
     public bool isPlayerTurn;
 
-    
+  
     public void Init()
     {
         if(photonView.ViewID == 1001)

@@ -4,20 +4,52 @@ using UnityEngine;
 
 public class SpellController : MonoBehaviour
 {
-    public bool isSpellActive;
-    public List<Spell> spellList;
+    public List<ChampionSpell> spellList;
+    public LayerMask playerFieldMask;
     public LayerMask enemyFieldMask;
+    public GameObject currentSpellIndicator;
 
-    public void ActivateSpell(int index)
+    public void Init(PlayerTeam playerTeam)
     {
-        spellList[index].spellStats.spellPrefab.SetActive(true);
+        if(playerTeam == PlayerTeam.TeamA)
+        {
+            playerFieldMask = LayerMask.GetMask("NodeA");
+            enemyFieldMask = LayerMask.GetMask("NodeB");
+        }
+        else
+        {
+            playerFieldMask = LayerMask.GetMask("NodeB");
+            enemyFieldMask = LayerMask.GetMask("NodeA");
+        }
     }
 
-    public void AimSpellOnField(int index,Camera camera,LayerMask mask,PlayerTeam team)
+    public void EnableIndicator(ChampionSpell spell)
     {
-        var grid = FindObjectOfType<FieldGrid>();
-        //spellList[index].AimSpell(camera, mask,team);
+        currentSpellIndicator = Instantiate(spell.spellStats.spellIndicator);
     }
 
+    public void DisableIndicator()
+    {
+        Destroy(currentSpellIndicator);
+    }
 
+    public void AimSpecificSpell(ChampionSpell spell)
+    {
+        var player = gameObject.GetComponentInParent<Player>();
+        var playerCamera = player.playerController.playerRaycast.playerCamera;
+        if (spell.spellEffect.targetType == TargetType.Allie)
+        {
+            spell.AimSpell(player,playerCamera,playerFieldMask);
+        }
+        else
+        {
+            spell.AimSpell(player, playerCamera, enemyFieldMask);
+        }
+    }
+
+    public void CastSpecificSpell(ChampionSpell spell)
+    {
+        var player = gameObject.GetComponentInParent<Player>();
+        spell.CastSpell(player);
+    }
 }

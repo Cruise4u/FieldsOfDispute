@@ -38,5 +38,5 @@ public class PlayerCanvas : MonoBehaviour
     {
         randomSpawnUnitUIGO.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "x"+ number.ToString();
     }
-
+    
 }

@@ -14,11 +14,12 @@ public class ChampionController : MonoBehaviour
         manaStats.Init();
         if (playerTeam == PlayerTeam.TeamA)
         {
-            playerTeam = PlayerTeam.TeamA;
+            this.playerTeam = PlayerTeam.TeamA;
         }
         else
         {
-            playerTeam = PlayerTeam.TeamB;
+            this.playerTeam = PlayerTeam.TeamB;
         }
+        spellController.Init(this.playerTeam);
     }
 }

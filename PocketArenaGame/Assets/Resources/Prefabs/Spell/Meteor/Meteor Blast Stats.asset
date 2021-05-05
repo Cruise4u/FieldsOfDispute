@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellPrefab: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
     type: 3}
+  spellIndicator: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
+    type: 3}
   spellPower: 1
   spellCost: 1
