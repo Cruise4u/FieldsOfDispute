@@ -4,8 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - SpawnNode
+  - DefaultNode
+  - BorderNode
+  - Unit
   - TeamA
-  - TeamB
   layers:
   - Default
   - TransparentFX
@@ -16,10 +19,10 @@ TagManager:
   - 
   - 
   - TeamA
-  - SpawnNode
-  - 
-  - 
-  - 
+  - TeamB
+  - Board
+  - NodeA
+  - NodeB
   - 
   - 
   - 

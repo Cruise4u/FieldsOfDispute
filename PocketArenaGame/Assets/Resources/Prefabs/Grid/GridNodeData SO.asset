@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeVisualizationGO: {fileID: 4708906587446141031, guid: a21377573ab2ecd41802db2fa940ee24,
     type: 3}
-  width: 3.5
-  playableMaterial: {fileID: 2100000, guid: 94bdab3d021722b4bad68b491838597f, type: 2}
-  nonplayableMaterial: {fileID: 2100000, guid: 67781563f29386f498ebc5f96b029d25, type: 2}
+  width: 4
+  playerANodeMat: {fileID: 2100000, guid: f30d081b7bb169a4e957598161fa2d5e, type: 2}
+  playerBNodeMat: {fileID: 2100000, guid: 8927875dc290c064e9630b6a5baeeffd, type: 2}
+  borderNodeMat: {fileID: 2100000, guid: 67781563f29386f498ebc5f96b029d25, type: 2}
   highlightMaterial: {fileID: 2100000, guid: c5d5adbb2517a1844a4df4967731c9f0, type: 2}

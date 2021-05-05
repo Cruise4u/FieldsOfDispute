@@ -2,23 +2,51 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class UnitStats : MonoBehaviour
 {
     public EntitiyStatsData statsData;
-    [NonSerialized]
-    public int unitHealthPoints;
-    [NonSerialized]
+    public UnitUI unitUI;
+    public int unitMaxHealthPoints;
+    public int unitCurrentHealthPoints;
     public int unitMovementPoints;
-    [NonSerialized]
     public int unitAttackPoints;
 
     public UnitController unitController;
+    public List<SpellEffect> effectsOnUnitList;
 
     public void Init()
     {
-        unitHealthPoints = statsData.healthPoints;
+        unitCurrentHealthPoints = Mathf.Clamp(statsData.healthPoints, 0, statsData.healthPoints);
+        unitUI.SetUIPoints(unitUI.healthUIGO, unitCurrentHealthPoints);
         unitMovementPoints = statsData.movementPoints;
+        unitUI.SetUIPoints(unitUI.movementUIGO, unitMovementPoints);
         unitAttackPoints = statsData.attackPoints;
+        unitUI.SetUIPoints(unitUI.attackUIGO, unitAttackPoints);
+    }
+
+    public void RemoveUnusedEffects()
+    {
+        foreach(SpellEffect effect in effectsOnUnitList)
+        {
+            if(effect.isActive != true)
+            {
+                effect.RemoveEffect(gameObject);
+                effectsOnUnitList.Remove(effect);
+            }
+        }
+    }
+
+    public void TriggerEffects()
+    {
+        foreach(SpellEffect effect in effectsOnUnitList)
+        {
+            if(effect.effectType == EffectType.Debuff)
+            {
+                effect.ApplyEffect(gameObject);
+            }
+        }
     }
 }
+

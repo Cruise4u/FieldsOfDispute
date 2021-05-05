@@ -6,14 +6,31 @@ using Bolt;
 using TMPro;
 
 public class Player : MonoBehaviourPunCallbacks
-{    
+{
     public PlayerTeam playerTeam;
-    public GameObject textObject;
+    public PlayerCanvas playerCanvas;
+    public PlayerController playerController;
+    public ChampionController championController;
+    public bool isPlayerTurn;
 
-    public void WriteMessage(string message)
+  
+    public void Init()
     {
-        textObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        if(photonView.ViewID == 1001)
+        {
+            playerTeam = PlayerTeam.TeamA;
+        }
+        else
+        {
+            playerTeam = PlayerTeam.TeamB;
+        }
+        InitializeComponents();
     }
 
+    public void InitializeComponents()
+    {
+        playerController.Init(playerTeam);
+        championController.Init(playerTeam);
+    }
 
 }
