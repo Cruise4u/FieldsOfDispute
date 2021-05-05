@@ -8,6 +8,7 @@ public class PoolController : MonoBehaviour
     public Pool currentPool;
     public List<Pool> poolList;
     public Dictionary<string, Pool> poolDictionary;
+   
     public void Init()
     {
         CreatePoolDictionary();
@@ -16,7 +17,10 @@ public class PoolController : MonoBehaviour
     {
         return currentPool.poolStack.Peek();
     }
-
+    public void SetCurrentPoolRandomly(string poolName)
+    {
+        currentPool = poolDictionary[poolName];
+    }
     public string GetRandomPoolByName()
     {
         string[] randomPoolName = new string[poolList.Count];
@@ -29,9 +33,9 @@ public class PoolController : MonoBehaviour
         }
         int randomNumber = Random.Range(0, randomPoolName.Length);
         var finalName = poolDictionary[poolList[randomNumber].poolName].poolName;
+        Debug.Log(finalName);
         return finalName;
     }
-
     public bool AreAllStacksEmpty()
     {
         bool condition;
@@ -53,7 +57,6 @@ public class PoolController : MonoBehaviour
         }
         return condition;
     }
-
     public bool IsStackIsNotEmpty(string poolName)
     {
         bool condition;

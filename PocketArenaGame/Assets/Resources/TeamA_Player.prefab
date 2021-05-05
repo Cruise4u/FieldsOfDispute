@@ -1230,18 +1230,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPool:
-    poolName: 
     poolPrefab: {fileID: 0}
+    poolName: 
     poolSize: 0
+    poolIcon: {fileID: 0}
   poolList:
-  - poolName: KnightPool
-    poolPrefab: {fileID: 7852452252180087927, guid: e8ee4e1b8aa41084cbe70196ad2a581a,
+  - poolPrefab: {fileID: 4898505881396244305, guid: 80a28b44a827d2248b5519fe45ddcf8b,
       type: 3}
-    poolSize: 4
-  - poolName: KnightPoolFake
-    poolPrefab: {fileID: 7745713186532048310, guid: bc9e0c67d8705124ba1959669906b3bf,
+    poolName: KnightPool
+    poolSize: 3
+    poolIcon: {fileID: 21300000, guid: 97eb33f17282b874aafc04781652f343, type: 3}
+  - poolPrefab: {fileID: 8248631107115351133, guid: a4a7d8d66a1e0184cb6ec0fd63f3370c,
       type: 3}
-    poolSize: 1
+    poolName: MagePool
+    poolSize: 3
+    poolIcon: {fileID: 21300000, guid: ed0a32aeeb2bf0f40ad22e944d930018, type: 3}
 --- !u!114 &5492103860140020316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,6 +1315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
+  randomSpawnUnitUIGO: {fileID: 1370396689242375072}
   canvas: {fileID: 91637739}
 --- !u!114 &1561398832145174188
 MonoBehaviour:
@@ -1326,8 +1330,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitControllersList: []
-  pool: {fileID: 0}
+  pool: {fileID: 4829611928548686750}
   numberOfSpawnsPerTurn: 0
+  availableObjects: []
 --- !u!114 &5492103860140020309
 MonoBehaviour:
   m_ObjectHideFlags: 0

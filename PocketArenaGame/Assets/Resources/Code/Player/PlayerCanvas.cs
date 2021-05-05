@@ -7,7 +7,6 @@ public class PlayerCanvas : MonoBehaviour
 {
     public Camera playerCamera;
     public GameObject randomSpawnUnitUIGO;
-    public int randomSpawnUnitsLeft;
     public Canvas canvas;
 
     public void Init(PlayerTeam playerTeam)
@@ -29,11 +28,15 @@ public class PlayerCanvas : MonoBehaviour
         canvas.worldCamera = playerCamera;
     }
 
-    public void SetRandomSpawnIcon(string poolName)
+    public void SetRandomSpawnIcon()
     {
-        var poolIcon = gameObject.GetComponent<PoolController>().poolDictionary[poolName].poolIcon;
-        randomSpawnUnitUIGO.transform.GetComponent<Image>().sprite = poolIcon;
+        var poolIcon = gameObject.GetComponent<PoolController>().currentPool.poolIcon;
+        randomSpawnUnitUIGO.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = poolIcon;
     }
 
+    public void SetRandomSpawnNumber(int number)
+    {
+        randomSpawnUnitUIGO.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "x"+ number.ToString();
+    }
 
 }

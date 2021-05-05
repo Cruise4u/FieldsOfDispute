@@ -7,9 +7,12 @@ public class UnitManager : MonoBehaviour
     public List<UnitController> unitControllersList;
     public PoolController pool;
     public int numberOfSpawnsPerTurn;
+
+    public List<GameObject> availableObjects;
+
     public void Init()
     {
-        numberOfSpawnsPerTurn = Mathf.Clamp(numberOfSpawnsPerTurn, 1, 3);
+        numberOfSpawnsPerTurn = Mathf.Clamp(1, 0, 3);
     }
     public bool IsThereAnyUnitOnField()
     {
@@ -24,19 +27,35 @@ public class UnitManager : MonoBehaviour
         }
         return condition;
     }
-    public void ChooseNodeToSpawn(Camera camera, LayerMask mask, string randomPoolName)
+    public void ChooseNodeToSpawn(Camera camera, LayerMask mask)
     {
-        var raycast = gameObject.GetComponent<PlayerRaycast>();
-        var pool = gameObject.GetComponent<PoolController>();
-        pool.currentPool = pool.poolDictionary[randomPoolName];
-        raycast.ShootRaycast(camera, mask);
-        if (raycast.hittedObject != null)
+        if(numberOfSpawnsPerTurn > 0)
         {
-            if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
+            var raycast = gameObject.GetComponent<PlayerRaycast>();
+            var pool = gameObject.GetComponent<PoolController>();
+            raycast.ShootRaycast(camera, mask);
+            if (raycast.hittedObject != null)
             {
-                pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
+                if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
+                {
+                    pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
+                }
             }
         }
+    }
+    public bool IsNumberOfSpawnsDepleted()
+    {
+        bool condition;
+        Debug.Log(numberOfSpawnsPerTurn);
+        if(numberOfSpawnsPerTurn < 1)
+        {
+            condition = true;
+        }
+        else
+        {
+            condition = false;
+        }
+        return condition;
     }
     public void IncreaseSpawnsPerTurn(int turnNumber)
     {
