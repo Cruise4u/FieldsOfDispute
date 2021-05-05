@@ -33,10 +33,4 @@ public class Player : MonoBehaviourPunCallbacks
         championController.Init(playerTeam);
     }
 
-    public void Start()
-    {
-        Init();
-    }
-
-
 }

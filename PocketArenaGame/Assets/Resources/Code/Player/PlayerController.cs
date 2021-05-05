@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 {
     public PlayerTeam playerTeam;
     public PlayerRaycast playerRaycast;
+    public PlayerCanvas playerCanvas;
     public PoolController poolController;
     public UnitManager unitManager;
     public bool isPlayerTurn;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         this.playerTeam = playerTeam;
         playerRaycast.Init(this.playerTeam);
+        playerCanvas.Init(this.playerTeam);
         poolController.Init();
         unitManager.Init();
     }

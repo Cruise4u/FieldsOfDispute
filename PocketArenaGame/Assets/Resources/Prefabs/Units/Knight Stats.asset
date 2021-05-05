@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Knight Stats
   m_EditorClassIdentifier: 
   healthPoints: 3
-  attackPoints: 3
-  movementPoints: 3
+  attackPoints: 1
+  movementPoints: 2

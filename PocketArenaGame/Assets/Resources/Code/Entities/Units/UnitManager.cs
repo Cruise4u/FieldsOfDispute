@@ -7,7 +7,10 @@ public class UnitManager : MonoBehaviour
     public List<UnitController> unitControllersList;
     public PoolController pool;
     public int numberOfSpawnsPerTurn;
-
+    public void Init()
+    {
+        numberOfSpawnsPerTurn = Mathf.Clamp(numberOfSpawnsPerTurn, 1, 3);
+    }
     public bool IsThereAnyUnitOnField()
     {
         bool condition;
@@ -21,27 +24,20 @@ public class UnitManager : MonoBehaviour
         }
         return condition;
     }
-
-    public void Init()
-    {
-        numberOfSpawnsPerTurn = Mathf.Clamp(numberOfSpawnsPerTurn, 1, 3);
-    }
-
-    public void ChooseNodeToSpawn(Camera camera,LayerMask mask,string concanatedName)
+    public void ChooseNodeToSpawn(Camera camera, LayerMask mask, string randomPoolName)
     {
         var raycast = gameObject.GetComponent<PlayerRaycast>();
         var pool = gameObject.GetComponent<PoolController>();
-        pool.currentPool = pool.poolDictionary[concanatedName];
+        pool.currentPool = pool.poolDictionary[randomPoolName];
         raycast.ShootRaycast(camera, mask);
         if (raycast.hittedObject != null)
         {
-            if(raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
+            if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
             {
                 pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
             }
         }
     }
-
     public void IncreaseSpawnsPerTurn(int turnNumber)
     {
         var multipleThree = turnNumber % 3;
@@ -50,7 +46,6 @@ public class UnitManager : MonoBehaviour
             numberOfSpawnsPerTurn += 1;
         }
     }
-
     public void RequestMovementOrder()
     {
         foreach(UnitController controller in unitControllersList)
@@ -58,10 +53,8 @@ public class UnitManager : MonoBehaviour
             controller.TriggerMovementOrder();
         }
     }
-
     public void RequestAbilityCastingOrder()
     {
 
     }
-
 }

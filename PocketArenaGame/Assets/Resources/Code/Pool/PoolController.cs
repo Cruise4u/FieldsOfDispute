@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PoolController : MonoBehaviour
 {
@@ -14,6 +15,57 @@ public class PoolController : MonoBehaviour
     public GameObject GetObjectFromTopOfStack()
     {
         return currentPool.poolStack.Peek();
+    }
+
+    public string GetRandomPoolByName()
+    {
+        string[] randomPoolName = new string[poolList.Count];
+        for (int i = 0; i < poolList.Count - 1; i++)
+        {
+            if(IsStackIsNotEmpty(poolList[i].poolName))
+            {
+                randomPoolName[i] = poolList[i].poolName.ToString();
+            }
+        }
+        int randomNumber = Random.Range(0, randomPoolName.Length);
+        var finalName = poolDictionary[poolList[randomNumber].poolName].poolName;
+        return finalName;
+    }
+
+    public bool AreAllStacksEmpty()
+    {
+        bool condition;
+        int stackNumber = 0;
+        foreach(Pool pool in poolList)
+        {
+            if(pool.poolStack.Count > 0)
+            {
+                stackNumber += 1;
+            }
+        }
+        if(stackNumber != 0)
+        {
+            condition = false;
+        }
+        else
+        {
+            condition = true;
+        }
+        return condition;
+    }
+
+    public bool IsStackIsNotEmpty(string poolName)
+    {
+        bool condition;
+        if (poolDictionary[poolName].poolStack.Count > 0)
+        {
+            condition = true;
+        }
+        else
+        {
+            condition = false;
+        }
+        return condition;
     }
     public void CreatePoolStack(Pool pool)
     {
@@ -57,9 +109,9 @@ public class PoolController : MonoBehaviour
 [System.Serializable]
 public class Pool
 {
-    public string poolName;
     public Stack<GameObject> poolStack;
     public GameObject poolPrefab;
+    public string poolName;
     public int poolSize;
-
+    public Sprite poolIcon;
 }
