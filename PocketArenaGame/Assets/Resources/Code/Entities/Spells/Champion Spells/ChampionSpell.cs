@@ -6,9 +6,8 @@ public abstract class ChampionSpell : ScriptableObject
     public SpellStats spellStats;
     public SpellEffect spellEffect;
 
-    public abstract void CastSpell(Player player);
-    public abstract void AimSpell(Player player, Camera camera, LayerMask mask);
-
-    public abstract void UseSpell(GameObject spellShape);
+    public abstract void CastSpell(User user);
+    public abstract void AimSpell(UserRaycast raycast);
+    public abstract void UseSpell(GameObject spellIndicator);
 }
 

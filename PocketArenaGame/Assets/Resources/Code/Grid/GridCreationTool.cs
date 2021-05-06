@@ -66,12 +66,15 @@ public class GridCreationTool : MonoBehaviour
         {
             if (node.GetComponent<FieldGridNode>().coordinates.x < 6)
             {
-                node.GetComponent<FieldGridNode>().nodeTeam = PlayerTeam.TeamA;
+                node.GetComponent<FieldGridNode>().nodeTeam = Team.A;
             }
             else
             {
-                node.GetComponent<FieldGridNode>().nodeTeam = PlayerTeam.TeamB;
+                node.GetComponent<FieldGridNode>().nodeTeam = Team.B;
             }
         }
     }
+
+    
+
 }

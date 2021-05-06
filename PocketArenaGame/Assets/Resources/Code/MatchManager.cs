@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class MatchManager : MonoBehaviour
 {
-    public Player[] controllers;
+    public User[] controllers;
     public int turnNumber;
     public float turnTimer = 30.0f;
 

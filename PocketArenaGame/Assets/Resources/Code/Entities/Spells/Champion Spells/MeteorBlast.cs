@@ -4,23 +4,23 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Spell/Champion Spell/Meteor Blast")]
 public class MeteorBlast : ChampionSpell
 {
-    public override void CastSpell(Player player)
+    public override void CastSpell(User user)
     {
-        var spellIndicator = player.transform.GetChild(0).GetComponent<SpellController>().currentSpellIndicator;
+        var spellIndicator = user.transform.GetChild(0).GetComponent<SpellController>().currentSpellIndicator;
         for (int i = 0; i < spellIndicator.transform.childCount; i++)
         {
             UseSpell(spellIndicator);
         }
     }
 
-    public override void AimSpell(Player player,Camera camera,LayerMask mask)
+    public override void AimSpell(UserRaycast raycast)
     {
         var grid = FindObjectOfType<FieldGrid>();
-        var raycast = player.playerController.playerRaycast;
-        var indicator = player.transform.GetChild(0).GetComponent<SpellController>().currentSpellIndicator;
-        raycast.ShootRaycast(camera, mask);
+        var user = raycast.gameObject.transform.parent.GetComponent<User>();
+        var indicator = user.transform.GetChild(0).GetComponent<SpellController>().currentSpellIndicator;
         int centerRowCoordinate = 0;
-        if(player.playerTeam == PlayerTeam.TeamA)
+        raycast.ShootRaycast(raycast.userCamera, raycast.enemyFieldMask);
+        if(user.team == Team.A)
         {
             centerRowCoordinate = 9;
         }
@@ -45,9 +45,9 @@ public class MeteorBlast : ChampionSpell
         }
     }
 
-    public override void UseSpell(GameObject spellShape)
+    public override void UseSpell(GameObject spellIndicator)
     {
-        Collider[] colliders = Physics.OverlapBox(spellShape.transform.position, spellShape.transform.lossyScale);
+        Collider[] colliders = Physics.OverlapBox(spellIndicator.transform.position, spellIndicator.transform.lossyScale);
         foreach (Collider collider in colliders)
         {
             if (collider.gameObject.GetComponent<UnitController>())

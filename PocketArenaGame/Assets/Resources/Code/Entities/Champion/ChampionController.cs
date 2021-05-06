@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class ChampionController : MonoBehaviour
 {
-    public PlayerTeam playerTeam;
+    public Team playerTeam;
     public ChampionHealth championHealth;
     public ManaStats manaStats;
     public SpellController spellController;
 
-    public void Init(PlayerTeam playerTeam)
+    public void Init(Team playerTeam)
     {
         championHealth.Init();
         manaStats.Init();
-        if (playerTeam == PlayerTeam.TeamA)
+        if (playerTeam == Team.A)
         {
-            this.playerTeam = PlayerTeam.TeamA;
+            this.playerTeam = Team.A;
         }
         else
         {
-            this.playerTeam = PlayerTeam.TeamB;
+            this.playerTeam = Team.B;
         }
         spellController.Init(this.playerTeam);
     }

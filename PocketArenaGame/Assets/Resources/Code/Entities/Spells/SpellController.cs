@@ -5,21 +5,22 @@ using UnityEngine;
 public class SpellController : MonoBehaviour
 {
     public List<ChampionSpell> spellList;
-    public LayerMask playerFieldMask;
-    public LayerMask enemyFieldMask;
+
     public GameObject currentSpellIndicator;
 
-    public void Init(PlayerTeam playerTeam)
+    public void Init(Team playerTeam)
     {
-        if(playerTeam == PlayerTeam.TeamA)
+        var user = gameObject.GetComponent<User>();
+        var raycast = gameObject.GetComponent<UserRaycast>();
+        if(user.team == Team.A)
         {
-            playerFieldMask = LayerMask.GetMask("NodeA");
-            enemyFieldMask = LayerMask.GetMask("NodeB");
+            raycast.playerFieldMask = LayerMask.GetMask("NodeA");
+            raycast.enemyFieldMask = LayerMask.GetMask("NodeB");
         }
         else
         {
-            playerFieldMask = LayerMask.GetMask("NodeB");
-            enemyFieldMask = LayerMask.GetMask("NodeA");
+            raycast.playerFieldMask = LayerMask.GetMask("NodeB");
+            raycast.enemyFieldMask = LayerMask.GetMask("NodeA");
         }
     }
 
@@ -35,21 +36,21 @@ public class SpellController : MonoBehaviour
 
     public void AimSpecificSpell(ChampionSpell spell)
     {
-        var player = gameObject.GetComponentInParent<Player>();
-        var playerCamera = player.playerController.playerRaycast.playerCamera;
+        var user = gameObject.GetComponentInParent<User>();
+        var userRaycast = gameObject.GetComponent<UserRaycast>();
         if (spell.spellEffect.targetType == TargetType.Allie)
         {
-            spell.AimSpell(player,playerCamera,playerFieldMask);
+            spell.AimSpell(userRaycast);
         }
         else
         {
-            spell.AimSpell(player, playerCamera, enemyFieldMask);
+            spell.AimSpell(userRaycast);
         }
     }
 
     public void CastSpecificSpell(ChampionSpell spell)
     {
-        var player = gameObject.GetComponentInParent<Player>();
-        spell.CastSpell(player);
+        var user = gameObject.GetComponentInParent<User>();
+        spell.CastSpell(user);
     }
 }

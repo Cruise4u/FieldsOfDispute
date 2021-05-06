@@ -27,27 +27,38 @@ public class UnitManager : MonoBehaviour
         }
         return condition;
     }
-    public void ChooseNodeToSpawn(Camera camera, LayerMask mask)
+    public void ChooseNodeToSpawn()
     {
         if(numberOfSpawnsPerTurn > 0)
         {
-            var raycast = gameObject.GetComponent<PlayerRaycast>();
+            var raycast = gameObject.GetComponent<UserRaycast>();
             var pool = gameObject.GetComponent<PoolController>();
-            raycast.ShootRaycast(camera, mask);
+            raycast.ShootRaycast(raycast.userCamera, raycast.spawnFieldMask);
             if (raycast.hittedObject != null)
             {
-                if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
+                if(raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
                 {
                     pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
                 }
             }
         }
     }
+    public void OrderMovement()
+    {
+        foreach(UnitController controller in unitControllersList)
+        {
+            controller.TriggerMovementOrder();
+        }
+    }
+    public void OrderSpellCasting()
+    {
+
+    }
     public bool IsNumberOfSpawnsDepleted()
     {
         bool condition;
         Debug.Log(numberOfSpawnsPerTurn);
-        if(numberOfSpawnsPerTurn < 1)
+        if (numberOfSpawnsPerTurn < 1)
         {
             condition = true;
         }
@@ -60,20 +71,9 @@ public class UnitManager : MonoBehaviour
     public void IncreaseSpawnsPerTurn(int turnNumber)
     {
         var multipleThree = turnNumber % 3;
-        if(turnNumber != 1 || turnNumber == multipleThree)
+        if (turnNumber != 1 || turnNumber == multipleThree)
         {
             numberOfSpawnsPerTurn += 1;
         }
-    }
-    public void RequestMovementOrder()
-    {
-        foreach(UnitController controller in unitControllersList)
-        {
-            controller.TriggerMovementOrder();
-        }
-    }
-    public void RequestAbilityCastingOrder()
-    {
-
     }
 }
