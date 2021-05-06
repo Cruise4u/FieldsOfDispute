@@ -1034,6 +1034,7 @@ GameObject:
   - component: {fileID: 1837082994041468487}
   - component: {fileID: 4898505881396244310}
   - component: {fileID: 4898505881396244311}
+  - component: {fileID: 5864450188338641824}
   m_Layer: 0
   m_Name: HQKnightPrefab
   m_TagString: Untagged
@@ -1158,6 +1159,19 @@ MonoBehaviour:
     _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
     _objectReferences:
     - {fileID: 11400000, guid: f95abe0399d4ec84fbfd180f15f8343c, type: 2}
+--- !u!65 &5864450188338641824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4898505881396244305}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5062121, y: 1.6733491, z: 1.696332}
+  m_Center: {x: 0.076583594, y: 0.9757246, z: -0.34816608}
 --- !u!1 &4898505881968973251
 GameObject:
   m_ObjectHideFlags: 0

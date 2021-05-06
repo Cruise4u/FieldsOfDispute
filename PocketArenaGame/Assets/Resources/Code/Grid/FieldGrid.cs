@@ -17,6 +17,10 @@ public class FieldGrid : MonoBehaviour
         for (int i = 0; i < nodeList.Count - 1; i++)
         {
             nodeCoordinatesDictionary.Add(nodeList[i].GetComponent<FieldGridNode>().coordinates, nodeList[i]);
+            if(nodeList[i].GetComponent<FieldGridNode>().coordinates.x == 11)
+            {
+                spawningNodeList.Add(nodeList[i].GetComponent<FieldGridNode>());
+            }
         }
     }
 

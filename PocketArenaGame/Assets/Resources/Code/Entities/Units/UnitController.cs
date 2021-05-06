@@ -12,32 +12,7 @@ public class UnitController : MonoBehaviour
     {
         unitStats.Init();
     }
-    public void TriggerMovementOrder()
-    {
-        CustomEvent.Trigger(gameObject,"OnMoveForwardEvent");
-    }
-    public void MoveUnitForward()
-    {
-        transform.DOMove(forwardNode.unitStationedTransform.position, 1.0f);
-    }
-    public void AttackChampion(UnitStats unitStats, ChampionController enemyChampion)
-    {
-        enemyChampion.championHealth.currentHealthPoints -= unitStats.unitAttackPoints;
-    }
-    public void TakeDamage(int damage)
-    {
-        Debug.Log("Taking Damage Sucessfull!");
-        unitStats.unitCurrentHealthPoints -= damage;
-        unitStats.unitUI.SetUIPoints(unitStats.unitUI.healthUIGO, unitStats.unitCurrentHealthPoints);
-        if(unitStats.unitCurrentHealthPoints < 1)
-        {
-            Die(1.5f);
-        }
-    }
-    public void Die(float timer)
-    {
-        Destroy(gameObject, timer);
-    }
+
     public bool IsCurrentNodeOnBorder(LayerMask borderMask)
     {
         bool condition = false;
@@ -56,7 +31,7 @@ public class UnitController : MonoBehaviour
         bool condition;
         var forwardCoordinates = currentNode.coordinates + new Vector2(1, 0);
         forwardNode = fieldGrid.nodeCoordinatesDictionary[forwardCoordinates].GetComponent<FieldGridNode>();
-        if(forwardNode.unitStationed == null)
+        if (forwardNode.unitStationed == null)
         {
             condition = true;
         }
@@ -65,6 +40,37 @@ public class UnitController : MonoBehaviour
             condition = false;
         }
         return condition;
+    }
+    public void TriggerMovementOrder()
+    {
+        CustomEvent.Trigger(gameObject,"OnMoveForwardEvent");
+    }
+    public void MoveUnitForward()
+    {
+        transform.DOMove(forwardNode.unitStationedTransform.position, 1.0f);
+    }
+    public void MoveUnitToNode(FieldGridNode node)
+    {
+        transform.DOMove(node.unitStationedTransform.position, 1.0f);
+        currentNode = node;
+    }
+    public void AttackChampion(UnitStats unitStats, ChampionController enemyChampion)
+    {
+        enemyChampion.championHealth.currentHealthPoints -= unitStats.unitAttackPoints;
+    }
+    public void TakeDamage(int damage)
+    {
+        Debug.Log("Taking Damage Sucessfull!");
+        unitStats.unitCurrentHealthPoints -= damage;
+        unitStats.unitUI.SetUIPoints(unitStats.unitUI.healthUIGO, unitStats.unitCurrentHealthPoints);
+        if(unitStats.unitCurrentHealthPoints < 1)
+        {
+            Die(1.5f);
+        }
+    }
+    public void Die(float timer)
+    {
+        Destroy(gameObject, timer);
     }
     public void RecalculatePositionOnGrid()
     {

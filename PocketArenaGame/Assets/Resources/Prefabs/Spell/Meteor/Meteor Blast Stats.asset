@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4637b0c20aa0e46a167e918f72339b, type: 3}
   m_Name: Meteor Blast Stats
   m_EditorClassIdentifier: 
+  spellName: 0
   spellPrefab: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
     type: 3}
   spellIndicator: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
     type: 3}
-  spellPower: 1
-  spellCost: 1
+  spellPower: 2
+  spellCost: 3
+  spellCD: 3
+  castableMaterial: {fileID: 2100000, guid: 94bdab3d021722b4bad68b491838597f, type: 2}
+  uncastableMaterial: {fileID: 2100000, guid: 30c69bca671636f4b9086f826a8d9a20, type: 2}

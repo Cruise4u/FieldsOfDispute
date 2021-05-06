@@ -1525,6 +1525,7 @@ GameObject:
   - component: {fileID: 3051630847087896597}
   - component: {fileID: 7067335340565076827}
   - component: {fileID: 4567299309667805018}
+  - component: {fileID: -3207357490303777282}
   m_Layer: 0
   m_Name: HQMagePrefab
   m_TagString: Untagged
@@ -1649,3 +1650,16 @@ MonoBehaviour:
   healthUIGO: {fileID: 4182416633884796760}
   attackUIGO: {fileID: 1865658006576420709}
   movementUIGO: {fileID: 1380057688636025511}
+--- !u!65 &-3207357490303777282
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8248631107115351133}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.6855888, z: 1.1826938}
+  m_Center: {x: 0, y: 0.83985233, z: 0.09134692}

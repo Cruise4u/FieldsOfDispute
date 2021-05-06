@@ -100,6 +100,15 @@ public class PoolController : MonoBehaviour
         {
             prefabInstance.SetActive(true);
             prefabInstance.transform.position = position;
+            var team = gameObject.GetComponent<User>().team;
+            if(team == Team.A)
+            {
+                prefabInstance.tag = "A";
+            }
+            else
+            {
+                prefabInstance.tag = "B";
+            }
         }
     }
     public void ReturnToPool(GameObject instance, Pool pool)

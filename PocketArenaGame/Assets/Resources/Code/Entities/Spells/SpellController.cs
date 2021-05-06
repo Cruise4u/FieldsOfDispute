@@ -2,55 +2,121 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellController : MonoBehaviour
+public class SpellController : MonoBehaviour,ISpellSubject
 {
-    public List<ChampionSpell> spellList;
-
     public GameObject currentSpellIndicator;
+    public ChampionSpell currentSpell;
+    public List<ChampionSpell> spellList;
+    public List<SpellButton> spellUIList;
+    public Dictionary<SpellName, ChampionSpell> spellDictionary;
+    public Dictionary<SpellName, float> cooldownDictionary;
 
-    public void Init(Team playerTeam)
+    public List<ISpellObserver> observerList { get => ObserverList; }
+    public List<ISpellObserver> ObserverList;
+
+    public bool isSpellBeingAimed;
+    public bool isSpellCastable;
+
+    public void Init()
     {
-        var user = gameObject.GetComponent<User>();
-        var raycast = gameObject.GetComponent<UserRaycast>();
-        if(user.team == Team.A)
-        {
-            raycast.playerFieldMask = LayerMask.GetMask("NodeA");
-            raycast.enemyFieldMask = LayerMask.GetMask("NodeB");
-        }
-        else
-        {
-            raycast.playerFieldMask = LayerMask.GetMask("NodeB");
-            raycast.enemyFieldMask = LayerMask.GetMask("NodeA");
-        }
+        spellDictionary = new Dictionary<SpellName, ChampionSpell>();
+        cooldownDictionary = new Dictionary<SpellName, float>();
+        ObserverList = new List<ISpellObserver>();
+        AddEntriesToDictionaries();
+        AttachObserver();
     }
 
-    public void EnableIndicator(ChampionSpell spell)
-    {
-        currentSpellIndicator = Instantiate(spell.spellStats.spellIndicator);
-    }
 
-    public void DisableIndicator()
+
+
+
+
+    public void AddEntriesToDictionaries()
     {
-        Destroy(currentSpellIndicator);
+        foreach(ChampionSpell spell in spellList)
+        {
+            spellDictionary.Add(spell.spellStats.spellName, spell);
+            cooldownDictionary.Add(spell.spellStats.spellName, 0);
+        }
+    }
+    public void SetCooldownToMaximum(SpellName spellName)
+    {
+        cooldownDictionary[spellName] = spellDictionary[spellName].spellStats.spellCD;
+        NotifyObserver(cooldownDictionary[spellName]);
+    }
+    public void ReduceCooldown(SpellName spellName,float amount)
+    {
+        var currentCooldown = cooldownDictionary[spellName];
+        currentCooldown -= amount;
+        NotifyObserver(currentCooldown);
+    }
+    public void ResetAllCooldownsOnBegin()
+    {
+        foreach(ChampionSpell spell in spellList)
+        {
+            spell.spellStats.spellCD = 0;
+            NotifyObserver(0);
+        }
     }
 
     public void AimSpecificSpell(ChampionSpell spell)
     {
         var user = gameObject.GetComponentInParent<User>();
-        var userRaycast = gameObject.GetComponent<UserRaycast>();
-        if (spell.spellEffect.targetType == TargetType.Allie)
+        Debug.Log(user);
+        var userRaycast = gameObject.GetComponentInParent<UserRaycast>();
+        Debug.Log(user);
+        spell.AimSpell(userRaycast);
+    }
+    public void CastSpecificSpell(ChampionSpell spell)
+    {
+        var user = gameObject.transform.parent.GetComponent<User>();
+        spell.CastSpell(user);
+    }
+    public void EnableIndicator(int spellId)
+    {
+        var user = gameObject.GetComponent<User>();
+        if (user.isPlayerTurn == true && isSpellCastable == true)
         {
-            spell.AimSpell(userRaycast);
+            currentSpell = spellDictionary[(SpellName)spellId];
+            currentSpellIndicator = Instantiate(currentSpell.spellStats.spellIndicator);
+        }
+    }
+    public void DisableIndicator()
+    {
+        Destroy(currentSpellIndicator);
+        isSpellBeingAimed = false;
+    }
+    public void ToggleSpellAim()
+    {
+        if (isSpellBeingAimed == true)
+        {
+            isSpellBeingAimed = false;
         }
         else
         {
-            spell.AimSpell(userRaycast);
+            isSpellBeingAimed = true;
         }
     }
-
-    public void CastSpecificSpell(ChampionSpell spell)
+    public void AttachObserver()
     {
-        var user = gameObject.GetComponentInParent<User>();
-        spell.CastSpell(user);
+        foreach(SpellButton button in spellUIList)
+        {
+                Debug.Log(button);
+            ObserverList.Add(button);
+        }
+    }
+    public void RemoveObserver()
+    {
+        foreach (SpellButton button in spellUIList)
+        {
+            observerList.Remove(button);
+        }
+    }
+    public void NotifyObserver(float cooldown)
+    {
+        foreach(ISpellObserver observer in observerList)
+        {
+            observer.GetNotified(cooldown);
+        }
     }
 }

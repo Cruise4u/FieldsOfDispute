@@ -1,6 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
+[Serializable]
+public enum SpellName
+{
+    MeteorBlast,
+    IceStorm,
+    HolyShield,
+    RighteousStrike,
+    Teleport,
+    Break,
+    ArrowStorm
+}
 public abstract class ChampionSpell : ScriptableObject
 {
     public SpellStats spellStats;

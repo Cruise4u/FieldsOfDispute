@@ -16,10 +16,10 @@ public class MeteorBlast : ChampionSpell
     public override void AimSpell(UserRaycast raycast)
     {
         var grid = FindObjectOfType<FieldGrid>();
-        var user = raycast.gameObject.transform.parent.GetComponent<User>();
+        var user = raycast.GetComponent<User>();
         var indicator = user.transform.GetChild(0).GetComponent<SpellController>().currentSpellIndicator;
         int centerRowCoordinate = 0;
-        raycast.ShootRaycast(raycast.userCamera, raycast.enemyFieldMask);
+        raycast.ShootRaycast(raycast.userCamera, raycast.enemyMask);
         if(user.team == Team.A)
         {
             centerRowCoordinate = 9;
