@@ -2,75 +2,130 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+public enum AIOption
+{
+    Spell,
+    Swap,
+}
 
 public class AIController : UserController
 {
     public AIOption currentOption;
 
-
-    public enum AIOption
+    public AIOption GetRandomOptionToPerform()
     {
-        Spell,
-        Switch,
-    }
-
-    public  void ChooseOption()
-    {
-        int randomOption = Random.Range(0, 1);
-        if(randomOption == 0)
+        int random = Random.Range(0, 2);
+        if(random == 1)
         {
             currentOption = AIOption.Spell;
         }
         else
         {
-            currentOption = AIOption.Switch;
+            currentOption = AIOption.Swap;
         }
+        return currentOption;
     }
-
+    public SpellName GetRandomSpellName()
+    {
+        var spellList = gameObject.transform.GetChild(0).GetComponent<SpellController>().spellList;
+        int randomNumber = Random.Range(0, spellList.Count);
+        return spellList[randomNumber].spellStats.spellName;
+    }
+    public Vector2 GetRandomNodeBySpellName(ChampionSpell spell)
+    {
+        var spellController = gameObject.transform.GetChild(0).GetComponent<SpellController>();
+        Vector2 spellCoordinates = new Vector2(-1, -1);
+        List<Vector2> coordinatesList = new List<Vector2>();
+        switch(spell.spellStats.spellName)
+        {
+            case SpellName.MeteorBlast:
+                var grid = FindObjectOfType<FieldGrid>();
+                var nodeList = grid.nodeList;
+                foreach (GameObject nodeGO in nodeList)
+                {
+                    if (nodeGO.GetComponent<FieldGridNode>().coordinates.x == 2 && nodeGO.GetComponent<FieldGridNode>().coordinates.y > 0 || nodeGO.GetComponent<FieldGridNode>().coordinates.x == 2 && nodeGO.GetComponent<FieldGridNode>().coordinates.y < 5)
+                    {
+                        coordinatesList.Add(nodeGO.GetComponent<FieldGridNode>().coordinates);
+                    }
+                }
+                int randomNumber = Random.Range(0, coordinatesList.Count);
+                spellCoordinates = coordinatesList[randomNumber];
+                break;
+        }
+        return spellCoordinates;
+    }
+    public Vector2 GetRandomNodeSpawnCoordinates()
+    {
+        var pool = FindObjectOfType<PoolController>();
+        var grid = FindObjectOfType<FieldGrid>();
+        int numberOfAvailableNodes = 0;
+        for (int i = 0; i < grid.spawningNodeList.Count; i++)
+        {
+            if (grid.spawningNodeList[i].unitStationed == null)
+            {
+                numberOfAvailableNodes += 1;
+            }
+        }
+        Vector2[] randomCoordinate = new Vector2[numberOfAvailableNodes];
+        for (int i = 0; i < randomCoordinate.Length; i++)
+        {
+            randomCoordinate[i] = grid.spawningNodeList[i].coordinates;
+        }
+        int randomNumber = Random.Range(0, randomCoordinate.Length);
+        Debug.Log(randomNumber);
+        return randomCoordinate[randomNumber];
+    }
     public bool CheckIfOptionIsValid()
     {
         bool condition;
         condition = true;
         return condition;
     }
-
-    public void GetRandomNodeToSpawn()
+    public void ChooseOption()
     {
-        var pool = FindObjectOfType<PoolController>();
-        var grid = FindObjectOfType<FieldGrid>();
-        int numberOfAvailableNodes = 0;
-        Vector2[] randomCoordinate;
-        for(int i = 0; i < grid.spawningNodeList.Count; i++)
+        int randomOption = Random.Range(0, 1);
+        if (randomOption == 0)
         {
-            if(grid.spawningNodeList[i].unitStationed == null)
+            currentOption = AIOption.Spell;
+        }
+        else
+        {
+            currentOption = AIOption.Swap;
+        }
+    }
+    public void GetNodeToAimSpell()
+    {
+        var grid = FindObjectOfType<FieldGrid>();
+        List<GameObject> availableToSpellNodeList;
+        foreach (GameObject node in grid.nodeList)
+        {
+            if (node.GetComponent<FieldGridNode>())
             {
-                numberOfAvailableNodes += 1;
+
             }
         }
-        randomCoordinate = new Vector2[numberOfAvailableNodes];
-        for(int i = 0; i < randomCoordinate.Length; i++)
+    }
+    public override void Init()
+    {
+        spawnNumber = Mathf.Clamp(2, 0, 3);
+    }
+    public override void ChooseNodeToSpawn()
+    {
+        var pool = gameObject.GetComponent<PoolController>();
+        var raycast = gameObject.GetComponent<AIRaycast>();
+        raycast.ShootRaycast(raycast.userCamera, raycast.userMask);
+        if (raycast.hittedObject != null)
         {
-            randomCoordinate[i] = grid.spawningNodeList[i].coordinates;
+            if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
+            {
+                var instance = pool.GetObjectFromTopOfStack();
+                pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
+                raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed = instance;
+                instance.GetComponent<UnitController>().currentNode = raycast.hittedObject.GetComponent<FieldGridNode>();
+                spawnNumber -= 1;
+            }
         }
-        int randomNumber = Random.Range(0, randomCoordinate.Length);
-        pool.SpawnFromPool(randomCoordinate[randomNumber]);
     }
 
-    public void ChooseNodeToSpawn()
-    {
-        //var raycast = gameObject.GetComponent<AIRaycast>();
-        //raycast.ShootRaycast(raycast.userCamera, raycast.userMask);
-        //if (raycast.hittedObject != null)
-        //{
-        //    if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
-        //    {
-        //        var instance = pool.GetObjectFromTopOfStack();
-        //        pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
-        //        raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed = instance;
-        //        instance.GetComponent<UnitController>().currentNode = raycast.hittedObject.GetComponent<FieldGridNode>();
-        //        numberOfSpawnsPerTurn -= 1;
-        //    }
-        //}
-    }
 
 }

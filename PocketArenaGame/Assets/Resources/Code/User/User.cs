@@ -25,8 +25,8 @@ public class User : MonoBehaviour
         userRaycast.Init();
         userCanvas.Init();
         poolController.Init();
+        userController.Init();
         championController.Init();
-        unitManager.Init();
     }
 
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 794899661473127414}
   - component: {fileID: 794899661473127413}
   m_Layer: 0
-  m_Name: Player_Canvas
+  m_Name: AI_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2058,8 +2058,10 @@ GameObject:
   - component: {fileID: 4794491892995344219}
   - component: {fileID: 4777790482157844968}
   - component: {fileID: 8708036312806601901}
-  - component: {fileID: 833145100852169546}
   - component: {fileID: 3619780950303551761}
+  - component: {fileID: 668173434415072904}
+  - component: {fileID: 84697934921973449}
+  - component: {fileID: 8661867949557155967}
   m_Layer: 0
   m_Name: AI Bot
   m_TagString: Untagged
@@ -2142,22 +2144,6 @@ MonoBehaviour:
     poolName: MagePool
     poolSize: 3
     poolIcon: {fileID: 21300000, guid: ed0a32aeeb2bf0f40ad22e944d930018, type: 3}
---- !u!114 &833145100852169546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7319835074066341255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2bc1e09a56b38247a8f881c8915342c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitControllersList: []
-  pool: {fileID: 8708036312806601901}
-  numberOfSpawnsPerTurn: 0
-  availableObjects: []
 --- !u!114 &3619780950303551761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,11 +2160,72 @@ MonoBehaviour:
   matchManager: {fileID: 0}
   poolController: {fileID: 8708036312806601901}
   championController: {fileID: 1721268096008801994}
-  unitManager: {fileID: 833145100852169546}
-  userController: {fileID: 0}
-  userRaycast: {fileID: 0}
-  userCanvas: {fileID: 0}
+  unitManager: {fileID: 0}
+  userController: {fileID: 668173434415072904}
+  userRaycast: {fileID: 84697934921973449}
+  userCanvas: {fileID: 8661867949557155967}
   isPlayerTurn: 0
+--- !u!114 &668173434415072904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319835074066341255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047b5d8f8a036fd499531781cf160b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnNumber: 0
+  unitList: []
+  pickedUnit: {fileID: 0}
+  isPlayerTurn: 0
+  isUnitPicked: 0
+  currentOption: 0
+--- !u!114 &84697934921973449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319835074066341255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c223e758f14044ca501ac927a02d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userCamera: {fileID: 0}
+  hittedObject: {fileID: 0}
+  spawnMask:
+    serializedVersion: 2
+    m_Bits: 0
+  defaultMask:
+    serializedVersion: 2
+    m_Bits: 0
+  userMask:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 0
+  nodeTarget: {fileID: 0}
+--- !u!114 &8661867949557155967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7319835074066341255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3bcbc3a8200f90478877ecbc0c6b893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  messagePanelGO: {fileID: 0}
+  spawnUnitGO: {fileID: 0}
+  spellUIList: []
 --- !u!1 &8394283366945111059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,7 +2284,7 @@ GameObject:
   - component: {fileID: 7346022206191342534}
   - component: {fileID: 2538238987968903470}
   m_Layer: 0
-  m_Name: Player_Champion
+  m_Name: AI_Champion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -26,11 +26,24 @@ public class SpellController : MonoBehaviour,ISpellSubject
         AttachObserver();
     }
 
+    public void SetCurrentSpell(SpellName spellName)
+    {
+        currentSpell = spellDictionary[spellName];
+    }
 
-
-
-
-
+    public bool IsSpellOnCD(SpellName spellName)
+    {
+        bool condition;
+        if(spellDictionary[spellName].spellStats.spellCD > 0)
+        {
+            condition = true;
+        }
+        else
+        {
+            condition = false;
+        }
+        return condition;
+    }
     public void AddEntriesToDictionaries()
     {
         foreach(ChampionSpell spell in spellList)
@@ -58,13 +71,9 @@ public class SpellController : MonoBehaviour,ISpellSubject
             NotifyObserver(0);
         }
     }
-
     public void AimSpecificSpell(ChampionSpell spell)
     {
-        var user = gameObject.GetComponentInParent<User>();
-        Debug.Log(user);
         var userRaycast = gameObject.GetComponentInParent<UserRaycast>();
-        Debug.Log(user);
         spell.AimSpell(userRaycast);
     }
     public void CastSpecificSpell(ChampionSpell spell)
@@ -74,7 +83,7 @@ public class SpellController : MonoBehaviour,ISpellSubject
     }
     public void EnableIndicator(int spellId)
     {
-        var user = gameObject.GetComponent<User>();
+        var user = gameObject.GetComponentInParent<User>();
         if (user.isPlayerTurn == true && isSpellCastable == true)
         {
             currentSpell = spellDictionary[(SpellName)spellId];

@@ -16,18 +16,23 @@ public class AIRaycast : UserRaycast
     public override void ShootRaycast(Camera camera, LayerMask mask)
     {
         Vector3 rayDirectionToNode = nodeTarget.gameObject.transform.position - camera.transform.position;
-        Vector3 rayPosition = camera.ScreenToWorldPoint(rayDirectionToNode);
-        userRay = new Ray(camera.transform.position, rayPosition);
-        Debug.DrawLine(userRay.origin, userRay.direction-userRay.origin, Color.red);
+        userRay = new Ray(camera.transform.position, rayDirectionToNode);
         if(Physics.Raycast(userRay,out userCastHit, camera.farClipPlane, mask))
         {
             hittedObject = userCastHit.collider.gameObject;
+            var direction = hittedObject.transform.position - camera.transform.position;
         }
         else
         {
             hittedObject = null;
         }
+        Debug.Log(hittedObject);
     }
 
-
+    public void SetNodeTarget(Vector2 coordinates)
+    {
+        var grid = FindObjectOfType<FieldGrid>();
+        var node = grid.nodeCoordinatesDictionary[coordinates].GetComponent<FieldGridNode>();
+        nodeTarget = node;
+    }
 }

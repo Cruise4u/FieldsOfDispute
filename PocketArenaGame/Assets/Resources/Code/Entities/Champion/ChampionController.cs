@@ -21,8 +21,6 @@ public class ChampionController : MonoBehaviour
         bool[] conditionArray;
         var spellController = gameObject.GetComponent<SpellController>();
         conditionArray = new bool[spellController.spellList.Count];
-        Debug.Log(conditionArray.Length);
-        Debug.Log(spellController.spellList.Count);
         for (int i = 0; i < spellController.spellList.Count; i++)
         {
             if(spellController.spellList[i].spellStats.spellCost > manaStats.currentManaPoints)
@@ -46,9 +44,20 @@ public class ChampionController : MonoBehaviour
         return condition;
     }
 
+    public bool HasManaToCastSpell(ChampionSpell spell)
+    {
+        if (spell.spellStats.spellCost > manaStats.currentManaPoints)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void ConsumeManaPoint(int cost)
     {
         manaStats.currentManaPoints -= cost;
     }
-
 }

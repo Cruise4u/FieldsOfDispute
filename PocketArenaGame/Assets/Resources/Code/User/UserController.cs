@@ -5,79 +5,75 @@ using Random = UnityEngine.Random;
 
 public class UserController : MonoBehaviour
 {
+    public int spawnNumber;
+    public List<UnitController> unitList;
     public GameObject pickedUnit;
-    public bool isPlayerTurn;
     public bool isUnitPicked;
-    public void CastSpell()
+    public virtual void Init()
     {
-
+        
     }
 
-    public void OrderSpellCastToAllUnitsOfType()
+    public virtual GameObject PickUnit()
     {
-
+        return pickedUnit;
     }
-
-    public GameObject PickUnit()
+    public virtual bool IsNumberOfSpawnsDepleted()
     {
-        var raycast = gameObject.GetComponent<UserRaycast>();
-        var user = gameObject.GetComponent<User>();
-        raycast.ShootRaycast(raycast.userCamera, raycast.defaultMask);
-        if (raycast.hittedObject != null && raycast.hittedObject.GetComponent<UnitController>() && raycast.hittedObject.tag == user.team.ToString())
+        bool condition;
+        if (spawnNumber < 1)
         {
-            pickedUnit = raycast.hittedObject;
-            isUnitPicked = true;
+            condition = true;
         }
         else
         {
-            pickedUnit = null;
+            condition = false;
         }
-        return pickedUnit;
+        return condition;
     }
-
-    public void DropUnit()
+    public virtual bool IsThereAnyUnitOnField()
+    {
+        bool condition;
+        if (unitList != null && unitList.Count > 0)
+        {
+            condition = true;
+        }
+        else
+        {
+            condition = false;
+        }
+        return condition;
+    }
+    public virtual void DropUnit()
     {
         pickedUnit = null;
         isUnitPicked = false;
-        Debug.Log("Unit dropped!");
     }
-
-    public void SwapAdjacentUnits()
+    public virtual void RequestUnitsSpellCast()
     {
-        var raycast = gameObject.GetComponent<UserRaycast>();
-        raycast.ShootRaycast(raycast.userCamera, raycast.defaultMask);
-        if(raycast.hittedObject != null)
-        {
-            var grid = FindObjectOfType<FieldGrid>();
-            var adjacentUnitCoordinates = pickedUnit.GetComponent<UnitController>().currentNode.coordinates;
-            var unitCoordinates = raycast.hittedObject.GetComponent<UnitController>().currentNode.coordinates;
-            if(raycast.hittedObject.GetComponent<UnitController>() && raycast.hittedObject != pickedUnit)
-            {
-                Debug.Log("Unit Picked!");
-                if (adjacentUnitCoordinates.y == unitCoordinates.y + 1 || adjacentUnitCoordinates.y == unitCoordinates.y - 1)
-                {
-                    var tempNode = raycast.hittedObject.GetComponent<UnitController>().currentNode;
-                    raycast.hittedObject.GetComponent<UnitController>().MoveUnitToNode(pickedUnit.GetComponent<UnitController>().currentNode);
-                    pickedUnit.GetComponent<UnitController>().MoveUnitToNode(tempNode);
 
-                    tempNode = null;
-                    DropUnit();
-                }
-            }
-            else
-            {
-                DropUnit();
-            }
-        }
-        else
+    }
+    public virtual void RequestUnitsMovement()
+    {
+        foreach (UnitController controller in unitList)
         {
-            DropUnit();
+            controller.TriggerMovementOrder();
         }
     }
-
-    public void OrderMovementToAllUnits()
+    public virtual void IncreaseSpawnsPerTurn(int turnNumber)
     {
-        gameObject.GetComponent<UnitManager>().OrderMovement();
+        var multipleThree = turnNumber % 3;
+        if (turnNumber != 1 || turnNumber == multipleThree)
+        {
+            spawnNumber += 1;
+        }
     }
-
+    public virtual void SwapAdjacentUnits()
+    {
+        
+    }
+    public virtual void ChooseNodeToSpawn()
+    {
+        
+    }
 }

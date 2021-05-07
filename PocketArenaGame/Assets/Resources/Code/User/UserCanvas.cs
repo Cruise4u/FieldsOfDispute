@@ -22,4 +22,15 @@ public class UserCanvas : MonoBehaviour
 
     }
 
+    public virtual void DisplaySpawnUnitIconOnUI()
+    {
+        var poolIcon = gameObject.GetComponent<PoolController>().currentPool.poolIcon;
+        spawnUnitGO.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = poolIcon;
+    }
+
+    public virtual void DisplaySpawnNumberOnUI(int number)
+    {
+        spawnUnitGO.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "x" + number.ToString();
+    }
+
 }

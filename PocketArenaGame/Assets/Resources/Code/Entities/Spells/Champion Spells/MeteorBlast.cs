@@ -28,13 +28,17 @@ public class MeteorBlast : ChampionSpell
         {
             centerRowCoordinate = 2;
         }
-        if(raycast.hittedObject != null && raycast.hittedObject.GetComponent<FieldGridNode>())
+        if (raycast.hittedObject != null && raycast.hittedObject.GetComponent<FieldGridNode>())
         {
+            var hittedObjectCoordinates = raycast.hittedObject.GetComponent<FieldGridNode>().coordinates;
             indicator.SetActive(true);
-            var hittedCoordinate = new Vector2(centerRowCoordinate, raycast.hittedObject.GetComponent<FieldGridNode>().coordinates.y);
-            var hittedTransform = grid.nodeCoordinatesDictionary[hittedCoordinate].GetComponent<FieldGridNode>().unitStationedTransform.position;
-            var adjustedPosition = new Vector3(hittedTransform.x, hittedTransform.y + 0.1f, hittedTransform.z);
-            indicator.transform.position = adjustedPosition;
+            if(hittedObjectCoordinates.y > 0 && hittedObjectCoordinates.y < 5)
+            {
+                var hittedCoordinate = new Vector2(centerRowCoordinate, raycast.hittedObject.GetComponent<FieldGridNode>().coordinates.y);
+                var hittedTransform = grid.nodeCoordinatesDictionary[hittedCoordinate].GetComponent<FieldGridNode>().unitStationedTransform.position;
+                var adjustedPosition = new Vector3(hittedTransform.x, hittedTransform.y + 0.1f, hittedTransform.z);
+                indicator.transform.position = adjustedPosition;
+            }
         }
         else
         {

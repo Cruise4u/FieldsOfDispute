@@ -14,12 +14,16 @@ public class FieldGrid : MonoBehaviour
     public void AddEntriesToDictionary()
     {
         nodeCoordinatesDictionary = new Dictionary<Vector2, GameObject>();
+        Debug.Log(nodeList.Count);
         for (int i = 0; i < nodeList.Count - 1; i++)
         {
             nodeCoordinatesDictionary.Add(nodeList[i].GetComponent<FieldGridNode>().coordinates, nodeList[i]);
-            if(nodeList[i].GetComponent<FieldGridNode>().coordinates.x == 11)
+        }
+        foreach(GameObject nodeGO in nodeList)
+        {
+            if(nodeGO.GetComponent<FieldGridNode>().coordinates.x == 11)
             {
-                spawningNodeList.Add(nodeList[i].GetComponent<FieldGridNode>());
+                spawningNodeList.Add(nodeGO.GetComponent<FieldGridNode>());
             }
         }
     }
