@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Linq;
 
 public class ChampionController : MonoBehaviour
 {
@@ -25,8 +26,6 @@ public class ChampionController : MonoBehaviour
         {
             if(spellController.spellList[i].spellStats.spellCost > manaStats.currentManaPoints)
             {
-                Debug.Log("Spell Cost is:" + spellController.spellList[i].spellStats.spellCost);
-                Debug.Log("Mana Points are:" + manaStats.currentManaPoints);
                 conditionArray[i] = true;
             }
             else
@@ -34,13 +33,7 @@ public class ChampionController : MonoBehaviour
                 conditionArray[i] = false;
             }
         }
-        foreach(bool boolean in conditionArray)
-        {
-            if(boolean == true)
-            {
-                condition = true;
-            }
-        }
+        condition = conditionArray.All(boolean => boolean == true);
         return condition;
     }
 

@@ -11,6 +11,7 @@ public enum AIOption
 public class AIController : UserController
 {
     public AIOption currentOption;
+    public GameObject swappingUnit;
 
     public AIOption GetRandomOptionToPerform()
     {
@@ -75,6 +76,40 @@ public class AIController : UserController
         Debug.Log(randomNumber);
         return randomCoordinate[randomNumber];
     }
+
+    public void FindPossibleUnitsToPick()
+    {
+        //pickedUnit = null;
+        //swappingUnit = null;
+        for (int i = 0; i < unitList.Count; i++)
+        {
+            pickedUnit = unitList[i].gameObject;
+            for (int j = 0; j < unitList.Count; j++)
+            {
+                if (pickedUnit != unitList[j].gameObject)
+                {
+                    if (pickedUnit.GetComponent<UnitController>().currentNode.coordinates.x == unitList[j].GetComponent<UnitController>().currentNode.coordinates.x)
+                    {
+                        if(unitList[j].GetComponent<UnitController>().currentNode.coordinates.y == pickedUnit.GetComponent<UnitController>().currentNode.coordinates.y +1 || unitList[j].GetComponent<UnitController>().currentNode.coordinates.y == pickedUnit.GetComponent<UnitController>().currentNode.coordinates.y - 1) 
+                        { 
+                            swappingUnit = unitList[j].gameObject;
+                            isUnitPicked = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public override void SwapAdjacentUnits()
+    {
+        var temporaryNode = pickedUnit.GetComponent<UnitController>().currentNode;
+        pickedUnit.GetComponent<UnitController>().MoveUnitToNode(swappingUnit.GetComponent<UnitController>().currentNode);
+        swappingUnit.GetComponent<UnitController>().MoveUnitToNode(temporaryNode);
+        isUnitPicked = false;
+    }
+
     public bool CheckIfOptionIsValid()
     {
         bool condition;
@@ -126,6 +161,5 @@ public class AIController : UserController
             }
         }
     }
-
 
 }

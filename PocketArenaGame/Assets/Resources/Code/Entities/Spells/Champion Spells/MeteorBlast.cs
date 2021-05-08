@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using DG.Tweening;
 
 [CreateAssetMenu(menuName ="Spell/Champion Spell/Meteor Blast")]
 public class MeteorBlast : ChampionSpell
@@ -11,6 +12,7 @@ public class MeteorBlast : ChampionSpell
         {
             UseSpell(spellIndicator);
         }
+        AnimateSpellVisualEffect(spellIndicator.transform.position);
     }
 
     public override void AimSpell(UserRaycast raycast)
@@ -57,8 +59,16 @@ public class MeteorBlast : ChampionSpell
             if (collider.gameObject.GetComponent<UnitController>())
             {
                 collider.GetComponent<UnitController>().TakeDamage(spellStats.spellPower);
+                var stationPosition = collider.GetComponent<UnitController>().currentNode.unitStationedTransform.position;
+                var origin = new Vector3(stationPosition.x, stationPosition.y + 10, stationPosition.z);
+                var direction = stationPosition - origin;
             }
         }
     }
 
+    public override void AnimateSpellVisualEffect(Vector3 position)
+    {
+        var spellVFX = Instantiate(spellStats.spellPrefab, position, Quaternion.identity);
+        Destroy(spellVFX, 3.5f);
+    }
 }

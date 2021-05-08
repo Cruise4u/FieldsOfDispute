@@ -29,6 +29,12 @@ public class SpellController : MonoBehaviour,ISpellSubject
     public void SetCurrentSpell(SpellName spellName)
     {
         currentSpell = spellDictionary[spellName];
+        currentSpellIndicator = Instantiate(currentSpell.spellStats.spellIndicator,new Vector3(100,100,100),Quaternion.identity);
+    }
+
+    public void DestroyIndicator()
+    {
+
     }
 
     public bool IsSpellOnCD(SpellName spellName)
@@ -110,7 +116,7 @@ public class SpellController : MonoBehaviour,ISpellSubject
     {
         foreach(SpellButton button in spellUIList)
         {
-                Debug.Log(button);
+
             ObserverList.Add(button);
         }
     }

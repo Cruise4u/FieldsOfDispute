@@ -31,6 +31,7 @@ public class AIRaycast : UserRaycast
 
     public void SetNodeTarget(Vector2 coordinates)
     {
+        Debug.Log(coordinates);
         var grid = FindObjectOfType<FieldGrid>();
         var node = grid.nodeCoordinatesDictionary[coordinates].GetComponent<FieldGridNode>();
         nodeTarget = node;

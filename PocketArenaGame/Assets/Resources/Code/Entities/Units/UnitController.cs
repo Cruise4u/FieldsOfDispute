@@ -51,7 +51,7 @@ public class UnitController : MonoBehaviour
     }
     public void MoveUnitToNode(FieldGridNode node)
     {
-        transform.DOMove(node.unitStationedTransform.position, 1.0f);
+        transform.DOMove(node.unitStationedTransform.position, 1.25f);
         currentNode = node;
     }
     public void AttackChampion(UnitStats unitStats, ChampionController enemyChampion)
