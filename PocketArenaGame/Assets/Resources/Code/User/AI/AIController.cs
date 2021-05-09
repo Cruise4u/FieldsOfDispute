@@ -54,20 +54,20 @@ public class AIController : UserController
         }
         return currentOption;
     }
-    public string GetRandomSpellName()
+    public int GetRandomSpellName()
     {
         var spellList = gameObject.transform.GetChild(0).GetComponent<SpellController>().spellList;
         int randomNumber = Random.Range(0, spellList.Count);
-        return spellList[randomNumber].spellStats.spellName;
+        return spellList[randomNumber].spellStats.spellId;
     }
-    public Vector2 GetRandomNodeBySpellName(Spell spell)
+    public Vector2 GetRandomNodeBySpellId(Spell spell)
     {
         var spellController = gameObject.transform.GetChild(0).GetComponent<SpellController>();
         Vector2 spellCoordinates = new Vector2(-1, -1);
         List<Vector2> coordinatesList = new List<Vector2>();
-        switch(spell.spellStats.spellName)
+        switch(spell.spellStats.spellId)
         {
-            case "MeteorBlast":
+            case 0:
                 var grid = FindObjectOfType<FieldGrid>();
                 var nodeList = grid.nodeList;
                 foreach (GameObject nodeGO in nodeList)
@@ -146,16 +146,5 @@ public class AIController : UserController
             currentOption = AIOption.Swap;
         }
     }
-    public void GetNodeToAimSpell()
-    {
-        var grid = FindObjectOfType<FieldGrid>();
-        List<GameObject> availableToSpellNodeList;
-        foreach (GameObject node in grid.nodeList)
-        {
-            if (node.GetComponent<FieldGridNode>())
-            {
 
-            }
-        }
-    }
 }

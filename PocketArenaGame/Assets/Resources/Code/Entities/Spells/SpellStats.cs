@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Spell/Stats")]
 public class SpellStats : ScriptableObject
 {
-    public string spellName;
+    public int spellId;
     public GameObject spellPrefab;
     public GameObject spellIndicator;
     public int spellPower;

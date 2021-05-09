@@ -42,7 +42,7 @@ public class ChampionMana : MonoBehaviour,IObserver
 
     public void GetNotified(float value)
     {
-        UpdateManaPoints(value);
+        UpdateManaBar(value);
     }
 }
 
