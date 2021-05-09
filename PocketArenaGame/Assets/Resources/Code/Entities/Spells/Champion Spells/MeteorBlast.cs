@@ -3,16 +3,18 @@ using UnityEngine;
 using DG.Tweening;
 
 [CreateAssetMenu(menuName ="Spell/Champion Spell/Meteor Blast")]
-public class MeteorBlast : ChampionSpell
+public class MeteorBlast : Spell
 {
     public override void CastSpell(User user)
     {
         var spellIndicator = user.transform.GetChild(0).GetComponent<SpellController>().currentSpellIndicator;
-        for (int i = 0; i < spellIndicator.transform.childCount; i++)
+        GameObject[] nodeArray = new GameObject[spellIndicator.transform.childCount];
+        for (int i = 0; i < nodeArray.Length; i++)
         {
-            UseSpell(spellIndicator);
+            nodeArray[i] = spellIndicator.transform.GetChild(i).gameObject;
+            UseSpell(nodeArray[i]);
+            AnimateSpellVisualEffect(nodeArray[i].transform.position);
         }
-        AnimateSpellVisualEffect(spellIndicator.transform.position);
     }
 
     public override void AimSpell(UserRaycast raycast)
@@ -69,6 +71,6 @@ public class MeteorBlast : ChampionSpell
     public override void AnimateSpellVisualEffect(Vector3 position)
     {
         var spellVFX = Instantiate(spellStats.spellPrefab, position, Quaternion.identity);
-        Destroy(spellVFX, 3.5f);
+        Destroy(spellVFX, 5.0f);
     }
 }

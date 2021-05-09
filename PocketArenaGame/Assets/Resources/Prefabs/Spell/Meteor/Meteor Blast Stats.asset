@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Meteor Blast Stats
   m_EditorClassIdentifier: 
   spellName: 0
-  spellPrefab: {fileID: 8474646248714924248, guid: b6290e36d8c37ef40a686e462d240591,
-    type: 3}
+  spellPrefab: {fileID: 147566, guid: c58b527866ea74d489b8e0a974c8823e, type: 3}
   spellIndicator: {fileID: 2177980315248871614, guid: 5ac2adf4df76e124592f9f38747c7a4c,
     type: 3}
   spellPower: 2

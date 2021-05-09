@@ -12,6 +12,34 @@ public class AIController : UserController
 {
     public AIOption currentOption;
     public GameObject swappingUnit;
+    public override void SwapAdjacentUnits()
+    {
+        var temporaryNode = pickedUnit.GetComponent<UnitController>().currentNode;
+        pickedUnit.GetComponent<UnitController>().MoveUnitToNode(swappingUnit.GetComponent<UnitController>().currentNode);
+        swappingUnit.GetComponent<UnitController>().MoveUnitToNode(temporaryNode);
+        isUnitPicked = false;
+    }
+    public override void Init()
+    {
+        spawnNumber = Mathf.Clamp(2, 0, 3);
+    }
+    public override void ChooseNodeToSpawn()
+    {
+        var pool = gameObject.GetComponent<PoolController>();
+        var raycast = gameObject.GetComponent<AIRaycast>();
+        raycast.ShootRaycast(raycast.userCamera, raycast.userMask);
+        if (raycast.hittedObject != null)
+        {
+            if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
+            {
+                var instance = pool.GetObjectFromTopOfStack();
+                pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
+                raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed = instance;
+                instance.GetComponent<UnitController>().currentNode = raycast.hittedObject.GetComponent<FieldGridNode>();
+                spawnNumber -= 1;
+            }
+        }
+    }
 
     public AIOption GetRandomOptionToPerform()
     {
@@ -26,20 +54,20 @@ public class AIController : UserController
         }
         return currentOption;
     }
-    public SpellName GetRandomSpellName()
+    public string GetRandomSpellName()
     {
         var spellList = gameObject.transform.GetChild(0).GetComponent<SpellController>().spellList;
         int randomNumber = Random.Range(0, spellList.Count);
         return spellList[randomNumber].spellStats.spellName;
     }
-    public Vector2 GetRandomNodeBySpellName(ChampionSpell spell)
+    public Vector2 GetRandomNodeBySpellName(Spell spell)
     {
         var spellController = gameObject.transform.GetChild(0).GetComponent<SpellController>();
         Vector2 spellCoordinates = new Vector2(-1, -1);
         List<Vector2> coordinatesList = new List<Vector2>();
         switch(spell.spellStats.spellName)
         {
-            case SpellName.MeteorBlast:
+            case "MeteorBlast":
                 var grid = FindObjectOfType<FieldGrid>();
                 var nodeList = grid.nodeList;
                 foreach (GameObject nodeGO in nodeList)
@@ -76,7 +104,6 @@ public class AIController : UserController
         Debug.Log(randomNumber);
         return randomCoordinate[randomNumber];
     }
-
     public void FindPossibleUnitsToPick()
     {
         //pickedUnit = null;
@@ -101,15 +128,6 @@ public class AIController : UserController
             }
         }
     }
-
-    public override void SwapAdjacentUnits()
-    {
-        var temporaryNode = pickedUnit.GetComponent<UnitController>().currentNode;
-        pickedUnit.GetComponent<UnitController>().MoveUnitToNode(swappingUnit.GetComponent<UnitController>().currentNode);
-        swappingUnit.GetComponent<UnitController>().MoveUnitToNode(temporaryNode);
-        isUnitPicked = false;
-    }
-
     public bool CheckIfOptionIsValid()
     {
         bool condition;
@@ -140,26 +158,4 @@ public class AIController : UserController
             }
         }
     }
-    public override void Init()
-    {
-        spawnNumber = Mathf.Clamp(2, 0, 3);
-    }
-    public override void ChooseNodeToSpawn()
-    {
-        var pool = gameObject.GetComponent<PoolController>();
-        var raycast = gameObject.GetComponent<AIRaycast>();
-        raycast.ShootRaycast(raycast.userCamera, raycast.userMask);
-        if (raycast.hittedObject != null)
-        {
-            if (raycast.hittedObject.tag == "SpawnNode" && raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed == null)
-            {
-                var instance = pool.GetObjectFromTopOfStack();
-                pool.SpawnFromPool(raycast.hittedObject.GetComponent<FieldGridNode>().unitStationedTransform.position);
-                raycast.hittedObject.GetComponent<FieldGridNode>().unitStationed = instance;
-                instance.GetComponent<UnitController>().currentNode = raycast.hittedObject.GetComponent<FieldGridNode>();
-                spawnNumber -= 1;
-            }
-        }
-    }
-
 }

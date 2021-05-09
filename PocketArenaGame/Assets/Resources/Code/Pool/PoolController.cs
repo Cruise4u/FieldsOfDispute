@@ -24,7 +24,7 @@ public class PoolController : MonoBehaviour
     public string GetRandomPoolByName()
     {
         string[] randomPoolName = new string[poolList.Count];
-        for (int i = 0; i < poolList.Count - 1; i++)
+        for (int i = 0; i < randomPoolName.Length; i++)
         {
             if(IsStackIsNotEmpty(poolList[i].poolName))
             {
