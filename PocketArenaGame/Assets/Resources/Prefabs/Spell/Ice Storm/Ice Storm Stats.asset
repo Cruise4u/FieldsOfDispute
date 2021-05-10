@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4637b0c20aa0e46a167e918f72339b, type: 3}
   m_Name: Ice Storm Stats
   m_EditorClassIdentifier: 
-  spellName: IceStorm
+  spellId: 1
   spellPrefab: {fileID: 7410792358357531074, guid: b50a865fa163b1443b786a41d919a130,
     type: 3}
   spellIndicator: {fileID: 7453670981175611733, guid: 3d2b184d1cee0594eaeb2d36d2d7c8a7,

@@ -13,12 +13,10 @@ public class UserController : MonoBehaviour
     {
         
     }
-
     public virtual GameObject PickUnit()
     {
         return pickedUnit;
     }
-
     public virtual bool IsNumberOfSpawnsDepleted()
     {
         bool condition;
@@ -56,9 +54,9 @@ public class UserController : MonoBehaviour
     }
     public virtual void RequestUnitsMovement()
     {
-        foreach (UnitController controller in unitList)
+        for(int i = 0; i < unitList.Count; i++)
         {
-            controller.TriggerMovementOrder();
+            unitList[i].TriggerMovementOrder();
         }
     }
     public virtual void IncreaseSpawnsPerTurn(int turnNumber)

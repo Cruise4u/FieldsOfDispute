@@ -14,7 +14,7 @@ public class FieldGrid : MonoBehaviour
     public void AddEntriesToDictionary()
     {
         nodeCoordinatesDictionary = new Dictionary<Vector2, GameObject>();
-        for (int i = 0; i < nodeList.Count - 1; i++)
+        for (int i = 0; i < nodeList.Count; i++)
         {
             nodeCoordinatesDictionary.Add(nodeList[i].GetComponent<FieldGridNode>().coordinates, nodeList[i]);
         }

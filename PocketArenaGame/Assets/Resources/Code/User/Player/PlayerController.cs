@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Bolt;
 
 public class PlayerController : UserController 
 {
@@ -42,8 +43,8 @@ public class PlayerController : UserController
                     var tempNode = raycast.hittedObject.GetComponent<UnitController>().currentNode;
                     raycast.hittedObject.GetComponent<UnitController>().MoveUnitToNode(pickedUnit.GetComponent<UnitController>().currentNode);
                     pickedUnit.GetComponent<UnitController>().MoveUnitToNode(tempNode);
-
                     tempNode = null;
+
                     DropUnit();
                 }
             }
@@ -77,5 +78,15 @@ public class PlayerController : UserController
                 }
             }
         }
+    }
+
+    public void SkipTurn()
+    {
+        CustomEvent.Trigger(gameObject, "MyTurn",false);
+    }
+
+    public override void RequestUnitsMovement()
+    {
+        base.RequestUnitsMovement();
     }
 }

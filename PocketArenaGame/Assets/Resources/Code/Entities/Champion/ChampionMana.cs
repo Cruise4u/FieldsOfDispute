@@ -9,6 +9,13 @@ public class ChampionMana : MonoBehaviour,IObserver
     public int maxManaPoints;
     public int currentManaPoints;
 
+    public void Init()
+    {
+        maxManaPoints = 3;
+        currentManaPoints = maxManaPoints;
+        UpdateManaBar(currentManaPoints);
+    }
+
     public void ResetManaPoints(int turnNumber)
     {
         if (turnNumber != 1)
@@ -26,13 +33,6 @@ public class ChampionMana : MonoBehaviour,IObserver
                 maxManaPoints += 1;
             }
         }
-    }
-
-    public void Init()
-    {
-        maxManaPoints = 3;
-        currentManaPoints = maxManaPoints;
-        UpdateManaBar(currentManaPoints);
     }
 
     public void UpdateManaBar(float value)

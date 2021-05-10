@@ -26,4 +26,6 @@ public class ChampionHealth : MonoBehaviour,IObserver
         healthBarGO.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = value.ToString();
     }
 
+
+
 }

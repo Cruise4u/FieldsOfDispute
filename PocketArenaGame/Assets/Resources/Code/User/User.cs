@@ -14,7 +14,6 @@ public class User : MonoBehaviour
     public MatchManager matchManager;
     public PoolController poolController;
     public ChampionController championController;
-    public UnitManager unitManager;
     public UserController userController;
     public UserRaycast userRaycast;
     public UserCanvas userCanvas;
@@ -23,7 +22,6 @@ public class User : MonoBehaviour
     public void Init()
     {
         userRaycast.Init();
-        userCanvas.Init();
         poolController.Init();
         userController.Init();
         championController.Init();

@@ -6,25 +6,39 @@ using UnityEngine.UI;
 
 public class SpellButton : MonoBehaviour,IObserver
 {
-    public string spellButtonName;
-    public float UICooldownValue;
+    public int buttonID;
     public GameObject UICooldownFiller;
     public GameObject UICDValue;
+    public GameObject spellCostGO;
 
     public void ChangeCooldownValue(float value)
     {
-        UICDValue.GetComponent<TextMeshProUGUI>().text = (UICooldownValue - value).ToString();
+        if((value) == 0)
+        {
+            UICDValue.GetComponent<TextMeshProUGUI>().text = "";
+        }
+        else
+        {
+            UICDValue.GetComponent<TextMeshProUGUI>().text = value.ToString();
+        }
     }
 
-    public void ChangeCooldownShaderFiller()
+    public void ChangeCooldownShaderFiller(float value)
    {
-        UICooldownFiller.GetComponent<Image>().fillAmount = (1/UICooldownValue);
+        Debug.Log(value);
+        UICooldownFiller.GetComponent<Image>().fillAmount = (value / 1);
    }
 
     public void GetNotified(float value)
     {
+        Debug.Log(value);
         ChangeCooldownValue(value);
-        ChangeCooldownShaderFiller();
+        ChangeCooldownShaderFiller(value);
+    }
+
+    public void SetSpellUICost(int value)
+    {
+        spellCostGO.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = value.ToString();
     }
 
 }

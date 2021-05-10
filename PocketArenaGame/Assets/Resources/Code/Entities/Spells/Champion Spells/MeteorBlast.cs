@@ -55,7 +55,7 @@ public class MeteorBlast : Spell
 
     public override void UseSpell(GameObject spellIndicator)
     {
-        Collider[] colliders = Physics.OverlapBox(spellIndicator.transform.position, spellIndicator.transform.lossyScale);
+        Collider[] colliders = Physics.OverlapBox(spellIndicator.transform.position, spellIndicator.transform.lossyScale/2);
         foreach (Collider collider in colliders)
         {
             if (collider.gameObject.GetComponent<UnitController>())
