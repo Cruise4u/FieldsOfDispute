@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class MatchManager : MonoBehaviour
 {
-    public Player[] controllers;
+    public User[] users;
     public int turnNumber;
     public float turnTimer = 30.0f;
 
@@ -29,26 +29,18 @@ public class MatchManager : MonoBehaviour
 
     public void SwitchTurns()
     {
-        if (controllers[0].isPlayerTurn == true)
+        if (users[0].isPlayerTurn == true)
         {
-            controllers[0].isPlayerTurn = false;
-            controllers[1].isPlayerTurn = true;
+            users[0].isPlayerTurn = false;
+            users[1].isPlayerTurn = true;
         }
         else
         {
-            controllers[1].isPlayerTurn = false;
-            controllers[0].isPlayerTurn = true;
+            users[1].isPlayerTurn = false;
+            users[0].isPlayerTurn = true;
         }
     }
 
-    public void RefillManaPoints()
-    {
-
-    }
-
-    public void IncreaseManaPoints()
-    {
-
-    }
+ 
 }
 

@@ -24,7 +24,7 @@ public class PoolController : MonoBehaviour
     public string GetRandomPoolByName()
     {
         string[] randomPoolName = new string[poolList.Count];
-        for (int i = 0; i < poolList.Count - 1; i++)
+        for (int i = 0; i < randomPoolName.Length; i++)
         {
             if(IsStackIsNotEmpty(poolList[i].poolName))
             {
@@ -33,7 +33,7 @@ public class PoolController : MonoBehaviour
         }
         int randomNumber = Random.Range(0, randomPoolName.Length);
         var finalName = poolDictionary[poolList[randomNumber].poolName].poolName;
-        Debug.Log(finalName);
+
         return finalName;
     }
     public bool AreAllStacksEmpty()
@@ -100,6 +100,16 @@ public class PoolController : MonoBehaviour
         {
             prefabInstance.SetActive(true);
             prefabInstance.transform.position = position;
+            gameObject.GetComponent<UserController>().unitList.Add(prefabInstance.GetComponent<UnitController>());
+            var team = gameObject.GetComponent<User>().team;
+            if(team == Team.A)
+            {
+                prefabInstance.tag = "A";
+            }
+            else
+            {
+                prefabInstance.tag = "B";
+            }
         }
     }
     public void ReturnToPool(GameObject instance, Pool pool)

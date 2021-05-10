@@ -3,7 +3,7 @@ using System;
 
 public class FieldGridNode : MonoBehaviour
 {
-    public PlayerTeam nodeTeam;
+    public Team nodeTeam;
     public Transform unitStationedTransform;
     public GameObject unitStationed;
     public Vector2 coordinates;

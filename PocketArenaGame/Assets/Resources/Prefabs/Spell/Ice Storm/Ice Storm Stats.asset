@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4637b0c20aa0e46a167e918f72339b, type: 3}
+  m_Name: Ice Storm Stats
+  m_EditorClassIdentifier: 
+  spellId: 1
+  spellPrefab: {fileID: 7410792358357531074, guid: b50a865fa163b1443b786a41d919a130,
+    type: 3}
+  spellIndicator: {fileID: 7453670981175611733, guid: 3d2b184d1cee0594eaeb2d36d2d7c8a7,
+    type: 3}
+  spellPower: 1
+  spellCost: 1
+  spellCD: 1
